@@ -1,11 +1,20 @@
 @import "./vars.scss";
+@import "./navbar.scss";
 
+
+html {
+  padding: 0;
+  margin: 0;
+}
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  padding: 0;
 }
 
-h1 {
-  color: $red;
+#app {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
 }

@@ -1,11 +1,11 @@
 import React from "react";
 import "./scss/index.scss";
-import Test from "./components/Test";
 import ProductDisplay from "./views/PDP";
 import ProductList from "./views/PLP";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import NotFound from "./views/NotFound";
+import NavBar from "./components/NavBar";
 
 class App extends React.Component {
   TProps = {
@@ -14,7 +14,8 @@ class App extends React.Component {
   render() {
     return (
       <Router>
-        <div className="App">
+        <div id="app">
+          <NavBar />
           <Routes>
             <Route path="/" element={<ProductList />} />
             <Route path="/product" element={<ProductDisplay />} />
