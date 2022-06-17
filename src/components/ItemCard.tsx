@@ -8,10 +8,6 @@ interface ItemCardProps {
 }
 
 class ItemCard extends React.Component<ItemCardProps, { counter: number }> {
-  constructor(props: ItemCardProps) {
-    super(props);
-  }
-
   render() {
     return (
       <div className="itemcard h-shadow">

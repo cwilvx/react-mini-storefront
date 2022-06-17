@@ -16,11 +16,13 @@ class App extends React.Component {
       <Router>
         <div id="app">
           <NavBar />
-          <Routes>
-            <Route path="/" element={<ProductList />} />
-            <Route path="/product" element={<ProductDisplay />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <div id="appcontent">
+            <Routes>
+              <Route path="/" element={<ProductList />} />
+              <Route path="/product" element={<ProductDisplay />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </div>
         </div>
       </Router>
     );

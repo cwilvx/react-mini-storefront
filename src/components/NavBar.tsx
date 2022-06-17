@@ -1,18 +1,48 @@
 import React from "react";
-import { ReactComponent as Logo } from "../images/logo.svg";
-import { ReactComponent as Dollar } from "../images/dollar.svg";
-import { ReactComponent as Cart } from "../images/cart.svg";
-import { ReactComponent as Drop } from "../images/drop.svg";
+import { ReactComponent as DropSvg } from "../images/drop.svg";
+import { ReactComponent as LogoSvg } from "../images/logo.svg";
+import { ReactComponent as DollarSvg } from "../images/dollar.svg";
+import { ReactComponent as CartSvg } from "../images/cart.svg";
+
+import CSwitcher from "./nav/Switcher";
+import CartOverlay from "./nav/CartOverlay";
 
 interface Props {}
 
-interface State {}
+interface State {
+  showCart: boolean;
+}
 
 class NavBar extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = {};
+    this.state = {
+      showCart: false,
+    };
+    this.showCart = this.showCart.bind(this);
+    this.hideCart = this.hideCart.bind(this);
   }
+
+  showCart() {
+    this.setState({
+      showCart: true,
+    });
+  }
+
+  hideCart = () => {
+    this.setState(
+      {
+        showCart: false,
+      },
+      () => {
+        console.log(console.log(this.state.showCart));
+      }
+    );
+  };
+
+  cartProps = {
+    hideCart: this.hideCart,
+  };
   render() {
     return (
       <div id="navbar">
@@ -22,25 +52,27 @@ class NavBar extends React.Component<Props, State> {
           <div className="nav-item">KIDS</div>
         </div>
         <div className="center">
-          <Logo />
+          <LogoSvg />
         </div>
         <div className="right">
           <div className="cswitcher">
-            <Dollar />
+            <DollarSvg />
             <div className="drop">
-              <Drop />
+              <DropSvg />
             </div>
-            <div className="dropdown">
-              <div className="d-item">$ USD</div>
-              <div className="d-item">€ EUR</div>
-              <div className="d-item">¥ JPY</div>
-            </div>
+            <CSwitcher />
           </div>
-          <div className="cart">
-            <Cart />
+          <div
+            className="cart"
+            onClick={() => {
+              this.showCart();
+            }}
+          >
+            <CartSvg />
             <div className="cart-count circular">
               <span>3</span>
             </div>
+            {this.state.showCart ? <CartOverlay {...this.cartProps} /> : null}
           </div>
         </div>
       </div>

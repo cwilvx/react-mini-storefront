@@ -26,7 +26,7 @@ class ProductList extends React.Component<Props, State> {
       name: "Product 3",
       price: 30,
       image: "https://picsum.photos/900/900",
-    }
+    },
   ];
 
   render() {
@@ -35,7 +35,7 @@ class ProductList extends React.Component<Props, State> {
         <h1>Category name</h1>
         <div id="prod-list">
           {this.items.map((item) => {
-            return <ItemCard {...item} />;
+            return <ItemCard {...item} key={item.name} />;
           })}
         </div>
       </div>

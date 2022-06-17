@@ -1,5 +1,11 @@
 #navbar {
-  padding: $small;
+  padding: $small 1rem;
+  position: fixed;
+  width: calc(100% - 2rem);
+  max-width: $maxappwidth;
+  margin: 0 auto;
+  z-index: 10;
+  background-color: $white;
 
   display: grid;
   grid-template-columns: 1fr max-content 1fr;
@@ -57,13 +63,14 @@
     .cart {
       margin-top: $smaller;
       position: relative;
+      cursor: pointer;
 
       .cart-count {
         position: absolute;
         top: -0.5rem;
         right: -0.5rem;
-        background-color: #000;
-        color: #fff;
+        background-color: $black;
+        color: $white;
         padding: $smaller;
         height: 1rem;
         aspect-ratio: 1;
@@ -73,7 +80,7 @@
 
         & > span {
           font-weight: bold;
-          font-size: .75rem;
+          font-size: 0.75rem;
         }
       }
     }

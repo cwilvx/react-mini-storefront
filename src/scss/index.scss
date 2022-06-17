@@ -2,7 +2,7 @@
 @import "./navbar.scss";
 @import "./views/plp.scss";
 @import "../scss/components/ItemCard.scss";
-
+@import "./components/CartOverlay.scss";
 @import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
 
 html {
@@ -18,9 +18,12 @@ body {
 }
 
 #app {
-  max-width: 1600px;
+  max-width: $maxappwidth;
   margin: 0 auto;
-  padding: 0 1rem;
+
+  #appcontent {
+    padding-top: 4rem;
+  }
 }
 
 .h-shadow {
