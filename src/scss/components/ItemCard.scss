@@ -1,0 +1,54 @@
+.itemcard {
+  padding: 1rem;
+  position: relative;
+
+  img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    margin-bottom: 1rem;
+  }
+
+  .item-name {
+    font-weight: light;
+  }
+
+  .item-price {
+    font-weight: bold;
+
+    &::before {
+      content: "£ ";
+    }
+  }
+
+  .cart-overlay {
+    position: absolute;
+    right: 1.5rem;
+    bottom: 1.75rem;
+    background-color: $primary;
+    width: 2rem;
+    padding: 1rem;
+    border-radius: 50%;
+    transition: all 0.2s ease-in-out;
+    opacity: 0;
+
+    svg {
+      margin: auto 0;
+      margin-right: $smaller;
+      transition: all 0.2s ease-in-out;
+    }
+
+    &:hover {
+      svg {
+        transform: skewY(-5deg) translateX($smaller);
+      }
+    }
+  }
+
+  &:hover {
+    .cart-overlay {
+      opacity: 1;
+      transform: translateY(-1rem);
+    }
+  }
+}

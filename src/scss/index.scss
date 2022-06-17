@@ -1,6 +1,9 @@
 @import "./vars.scss";
 @import "./navbar.scss";
+@import "./views/plp.scss";
+@import "../scss/components/ItemCard.scss";
 
+@import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
 
 html {
   padding: 0;
@@ -11,10 +14,25 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   padding: 0;
+  font-family: "Raleway", sans-serif;
 }
 
 #app {
-  width: 100%;
   max-width: 1600px;
   margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.h-shadow {
+  &:hover {
+    box-shadow: 0 0.5rem 1rem #a7abaf86;
+  }
+}
+
+.rounded {
+  border-radius: 0.5rem;
+}
+
+.circular {
+  border-radius: 50%;
 }
