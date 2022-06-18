@@ -19,25 +19,20 @@ class NavBar extends React.Component<Props, State> {
     this.state = {
       showCart: false,
     };
-    this.showCart = this.showCart.bind(this);
+    this.toggleCart = this.toggleCart.bind(this);
     this.hideCart = this.hideCart.bind(this);
   }
 
-  showCart() {
+  toggleCart() {
     this.setState({
-      showCart: true,
+      showCart: !this.state.showCart,
     });
   }
 
   hideCart = () => {
-    this.setState(
-      {
-        showCart: false,
-      },
-      () => {
-        console.log(console.log(this.state.showCart));
-      }
-    );
+    this.setState({
+      showCart: false,
+    });
   };
 
   cartProps = {
@@ -47,7 +42,7 @@ class NavBar extends React.Component<Props, State> {
     return (
       <div id="navbar">
         <div className="left">
-          <div className="nav-item">WOMEN</div>
+          <div className="nav-item active">WOMEN</div>
           <div className="nav-item">MEN</div>
           <div className="nav-item">KIDS</div>
         </div>
@@ -62,15 +57,16 @@ class NavBar extends React.Component<Props, State> {
             </div>
             <CSwitcher />
           </div>
-          <div
-            className="cart"
-            onClick={() => {
-              this.showCart();
-            }}
-          >
-            <CartSvg />
-            <div className="cart-count circular">
-              <span>3</span>
+          <div className="cart">
+            <div
+              onClick={() => {
+                this.toggleCart();
+              }}
+            >
+              <CartSvg />
+              <div className="cart-count circular">
+                <span>3</span>
+              </div>
             </div>
             {this.state.showCart ? <CartOverlay {...this.cartProps} /> : null}
           </div>

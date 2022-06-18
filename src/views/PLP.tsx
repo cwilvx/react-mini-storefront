@@ -20,12 +20,27 @@ class ProductList extends React.Component<Props, State> {
     {
       name: "Product 2",
       price: 20,
-      image: "https://picsum.photos/920/900",
+      image: "https://picsum.photos/960/900",
     },
     {
       name: "Product 3",
       price: 30,
       image: "https://picsum.photos/900/900",
+    },
+    {
+      name: "Product 4",
+      price: 40,
+      image: "https://picsum.photos/910/900",
+    },
+    {
+      name: "Product 5",
+      price: 50,
+      image: "https://picsum.photos/920/900",
+    },
+    {
+      name: "Product 6",
+      price: 60,
+      image: "https://picsum.photos/950/900",
     },
   ];
 
