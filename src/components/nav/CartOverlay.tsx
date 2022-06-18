@@ -33,8 +33,8 @@ class Cart extends React.Component<CartProps, CartState> {
             <div className="total-price">$ 50.00</div>
           </div>
           <div className="buttons">
-            <div className="view-bag">VIEW BAG</div>
-            <div className="checkout">CHECK OUT</div>
+            <button className="view-bag button">VIEW BAG</button>
+            <button className="bg-primary button">CHECK OUT</button>
           </div>
         </div>
       </div>

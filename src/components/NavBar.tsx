@@ -6,6 +6,7 @@ import { ReactComponent as CartSvg } from "../images/cart.svg";
 
 import CSwitcher from "./nav/Switcher";
 import CartOverlay from "./nav/CartOverlay";
+import { Link } from "react-router-dom";
 
 interface Props {}
 
@@ -47,7 +48,9 @@ class NavBar extends React.Component<Props, State> {
           <div className="nav-item">KIDS</div>
         </div>
         <div className="center">
-          <LogoSvg />
+          <Link to="/">
+            <LogoSvg />
+          </Link>
         </div>
         <div className="right">
           <div className="cswitcher">

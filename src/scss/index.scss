@@ -1,6 +1,7 @@
 @import "./vars.scss";
 @import "./NavBar.scss";
 @import "./views/PLP.scss";
+@import "./views/PDP.scss";
 @import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
 
 html {
@@ -36,4 +37,22 @@ body {
 
 .circular {
   border-radius: 50%;
+}
+
+button {
+  width: 100%;
+  background-color: $white;
+  font-size: inherit;
+  border: solid 1px;
+  padding: 0.75rem;
+  font-weight: bold;
+}
+
+.bg-primary {
+  background-color: $primary;
+  color: $white;
+}
+
+.bold {
+  font-weight: bold;
 }

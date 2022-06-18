@@ -7,7 +7,7 @@
   width: 20rem;
   background-color: $white;
   padding: 1rem;
-  
+
   .content {
     z-index: 1200;
 
@@ -35,17 +35,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
 
-      & > * {
-        border: solid 1px;
-        padding: 0.75rem;
-        text-align: center;
-        font-weight: bold;
-      }
 
-      .checkout {
-        background-color: $primary;
-        color: $white;
-      }
     }
   }
 

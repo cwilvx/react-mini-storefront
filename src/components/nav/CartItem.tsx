@@ -20,7 +20,7 @@ class ItemCart extends React.Component<ItemCartProps, ItemCartState> {
 
           <div className="sizes">
             <div className="h">Size:</div>
-            <div className="content">
+            <div className="cart-content">
               <div className="size">XS</div>
               <div className="size">S</div>
               <div className="size selected-size">M</div>
@@ -30,7 +30,7 @@ class ItemCart extends React.Component<ItemCartProps, ItemCartState> {
           </div>
           <div className="colors">
             <div className="h">Color:</div>
-            <div className="content">
+            <div className="cart-content">
               <div className="outline">
                 <div className="color"></div>
               </div>
