@@ -2,13 +2,14 @@
 @import "./components/CartOverlay.scss";
 
 #navbar {
-  padding: $small 1rem;
+  padding: $small 0;
   position: fixed;
   width: calc(100% - 2rem);
   max-width: $maxappwidth;
   margin: 0 auto;
   z-index: 10;
   background-color: $white;
+
 
   display: grid;
   grid-template-columns: 1fr max-content 1fr;

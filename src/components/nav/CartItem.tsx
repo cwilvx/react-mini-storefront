@@ -21,11 +21,11 @@ class ItemCart extends React.Component<ItemCartProps, ItemCartState> {
           <div className="sizes">
             <div className="h">Size:</div>
             <div className="cart-content">
-              <div className="size">XS</div>
-              <div className="size">S</div>
-              <div className="size selected-size">M</div>
-              <div className="size">L</div>
-              <div className="size">XL</div>
+              <button>XL</button>
+              <button>L</button>
+              <button className="selected-size">M</button>
+              <button>S</button>
+              <button>XS</button>
             </div>
           </div>
           <div className="colors">

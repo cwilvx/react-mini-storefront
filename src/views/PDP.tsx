@@ -37,10 +37,10 @@ class ProductDisplay extends React.Component<Props, State> {
           <div className="sizes">
             <div className="h">SIZE:</div>
             <div className="cart-content">
-              <div className="size">XS</div>
-              <div className="size">S</div>
-              <div className="size selected-size">M</div>
-              <div className="size">L</div>
+              <button className="selected-size">XL</button>
+              <button>L</button>
+              <button>S</button>
+              <button>L</button>
             </div>
           </div>
           <div className="colors">

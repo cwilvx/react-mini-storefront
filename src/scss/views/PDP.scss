@@ -43,8 +43,9 @@
     }
 
     .sizes {
-      .size {
+      button {
         height: 2rem;
+        width: auto;
         aspect-ratio: 1.25/1;
       }
     }

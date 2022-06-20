@@ -41,11 +41,12 @@ body {
 
 button {
   width: 100%;
-  background-color: $white;
+  background: $white;
   font-size: inherit;
   border: solid 1px;
   padding: 0.75rem;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .bg-primary {
