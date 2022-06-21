@@ -2,12 +2,19 @@
 @import "./NavBar.scss";
 @import "./views/PLP.scss";
 @import "./views/PDP.scss";
+@import "./views/Cart.scss";
 @import url("https://fonts.googleapis.com/css2?family=Raleway&display=swap");
 
 html {
   padding: 0;
   margin: 0;
+  overflow: scroll;
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
 }
+
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
@@ -21,7 +28,8 @@ body {
   margin: 0 auto;
 
   #appcontent {
-    padding-top: 4rem;
+    padding: 0 $small;
+    padding-top: 5rem;
   }
 }
 

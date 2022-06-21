@@ -7,6 +7,9 @@
     .dropdown {
       display: unset;
     }
+    .drop {
+      transform: rotate(180deg) translateY(-$small);
+    }
   }
 
   .dropdown {
@@ -26,6 +29,7 @@
 
       &:hover {
         background-color: rgba(128, 128, 128, 0.116);
+
       }
     }
   }

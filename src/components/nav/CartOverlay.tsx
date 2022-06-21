@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import CartItem from "./CartItem";
 
 interface CartProps {
@@ -32,8 +33,16 @@ class Cart extends React.Component<CartProps, CartState> {
             <div className="text">Total</div>
             <div className="total-price">$ 50.00</div>
           </div>
-          <div className="buttons">
-            <button className="view-bag button">VIEW BAG</button>
+          <div
+            className="buttons"
+            onClick={() => {
+              this.props.hideCart();
+            }}
+          >
+            <Link to="/cart">
+              <button className="view-bag button">VIEW BAG</button>
+            </Link>
+
             <button className="bg-primary button">CHECK OUT</button>
           </div>
         </div>

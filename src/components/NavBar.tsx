@@ -42,36 +42,38 @@ class NavBar extends React.Component<Props, State> {
   render() {
     return (
       <div id="navbar">
-        <div className="left">
-          <div className="nav-item active">WOMEN</div>
-          <div className="nav-item">MEN</div>
-          <div className="nav-item">KIDS</div>
-        </div>
-        <div className="center">
-          <Link to="/">
-            <LogoSvg />
-          </Link>
-        </div>
-        <div className="right">
-          <div className="cswitcher">
-            <DollarSvg />
-            <div className="drop">
-              <DropSvg />
-            </div>
-            <CSwitcher />
+        <div id="actual-nav">
+          <div className="left">
+            <div className="nav-item active">WOMEN</div>
+            <div className="nav-item">MEN</div>
+            <div className="nav-item">KIDS</div>
           </div>
-          <div className="cart">
-            <div
-              onClick={() => {
-                this.toggleCart();
-              }}
-            >
-              <CartSvg />
-              <div className="cart-count circular">
-                <span>3</span>
+          <div className="center">
+            <Link to="/">
+              <LogoSvg />
+            </Link>
+          </div>
+          <div className="right">
+            <div className="cswitcher">
+              <DollarSvg />
+              <div className="drop">
+                <DropSvg />
               </div>
+              <CSwitcher />
             </div>
-            {this.state.showCart ? <CartOverlay {...this.cartProps} /> : null}
+            <div className="cart">
+              <div
+                onClick={() => {
+                  this.toggleCart();
+                }}
+              >
+                <CartSvg />
+                <div className="cart-count circular">
+                  <span>3</span>
+                </div>
+              </div>
+              {this.state.showCart ? <CartOverlay {...this.cartProps} /> : null}
+            </div>
           </div>
         </div>
       </div>

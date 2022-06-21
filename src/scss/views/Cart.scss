@@ -1,0 +1,24 @@
+@import "../components/CartPageItem.scss";
+
+#cart-page {
+  #cart-items {
+    border-bottom: solid 1px $gray1;
+    margin-bottom: 1.5rem;
+  }
+
+  #metrics {
+    margin: 1.5rem 0;
+
+    & > * {
+      margin-bottom: $small;
+    }
+  }
+
+  .bg-primary {
+    width: 20rem;
+  }
+
+  .h2 {
+    margin: 2rem 0;
+  }
+}

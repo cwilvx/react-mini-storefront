@@ -3,6 +3,11 @@
   grid-template-columns: 1fr max-content 1fr;
   gap: 1rem;
 
+  svg {
+    width: 2rem;
+    height: 2rem;
+  }
+
   h3 {
     margin: 0;
   }
@@ -58,6 +63,7 @@
 .sizes {
   button {
     width: 1.5rem;
+    font-size: .75rem;
     aspect-ratio: 1;
     padding: 0;
     border: solid 1px $black;

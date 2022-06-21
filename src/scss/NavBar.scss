@@ -2,19 +2,21 @@
 @import "./components/CartOverlay.scss";
 
 #navbar {
-  padding: $small 0;
   position: fixed;
-  width: calc(100% - 2rem);
+  width: 100%;
   max-width: $maxappwidth;
   margin: 0 auto;
   z-index: 10;
   background-color: $white;
+  
+  #actual-nav {
+    padding: $small 1rem;
+    // width: 100%;
+    display: grid;
+    grid-template-columns: 1fr max-content 1fr;
 
-
-  display: grid;
-  grid-template-columns: 1fr max-content 1fr;
-
-  align-items: center;
+    align-items: center;
+  }
 
   .left {
     display: flex;
@@ -26,8 +28,14 @@
     }
 
     .active {
+      color: $primary;
       border-bottom: solid 3px $primary;
     }
+  }
+
+  .drop {
+    // border: solid;
+    transition: all .2s ease-in-out;
   }
 
   .right {
