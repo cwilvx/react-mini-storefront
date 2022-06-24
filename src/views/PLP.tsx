@@ -1,58 +1,52 @@
 import React from "react";
 import ItemCard from "../components/ItemCard";
+import client from "../graph/getClient";
+import { Category } from "../interfaces";
+import { getCategories } from "../graph/queries";
 
-interface Props {}
+interface State {
+  categories: Category[];
+}
 
-interface State {}
-
-class ProductList extends React.Component<Props, State> {
-  constructor(props: Props) {
+class ProductList extends React.Component<{}, State> {
+  constructor(props: any) {
     super(props);
-    this.state = {};
+    this.state = {
+      categories: [],
+    };
   }
 
-  items = [
-    {
-      name: "Product 1",
-      price: 10,
-      image: "https://picsum.photos/930/900",
-    },
-    {
-      name: "Product 2",
-      price: 20,
-      image: "https://picsum.photos/960/900",
-    },
-    {
-      name: "Product 3",
-      price: 30,
-      image: "https://picsum.photos/900/900",
-    },
-    {
-      name: "Product 4",
-      price: 40,
-      image: "https://picsum.photos/910/900",
-    },
-    {
-      name: "Product 5",
-      price: 50,
-      image: "https://picsum.photos/920/900",
-    },
-    {
-      name: "Product 6",
-      price: 60,
-      image: "https://picsum.photos/950/900",
-    },
-  ];
+  async getCategories() {
+    client
+      .query({
+        query: getCategories,
+      })
+      .then((res) => {
+        this.setState({
+          categories: res.data.categories,
+        });
+      });
+  }
+
+  componentDidMount() {
+    this.getCategories();
+  }
 
   render() {
     return (
       <div id="productlist">
-        <h1>Category name</h1>
-        <div id="prod-list">
-          {this.items.map((item) => {
-            return <ItemCard {...item} key={item.name} />;
-          })}
-        </div>
+        {this.state.categories.map((category) => {
+          return (
+            <div key={category.name}>
+              <h1>{category.name}</h1>
+              <div className="prod-list">
+                {category.products.map((product) => {
+                  return <ItemCard {...product} key={product.name} />;
+                })}
+              </div>
+            </div>
+          );
+        })}
       </div>
     );
   }

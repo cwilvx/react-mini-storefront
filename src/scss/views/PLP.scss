@@ -4,9 +4,10 @@
 
   h1 {
     font-weight: normal;
+    text-transform: capitalize;
   }
 
-  #prod-list {
+  .prod-list {
     margin-top: 5rem;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));

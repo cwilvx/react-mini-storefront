@@ -1,20 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as Cart } from "../images/cart-white.svg";
+import { Product } from "../interfaces";
 
-interface ItemCardProps {
-  name: string;
-  price: number;
-  image: string;
-}
-
-class ItemCard extends React.Component<ItemCardProps, { counter: number }> {
+class ItemCard extends React.Component<Product, { counter: number }> {
   render() {
     return (
       <Link to="/product" className="itemcard h-shadow">
-        <img src={this.props.image} alt="" />
+        <img src={this.props.gallery[0]} alt="" />
         <div className="item-name">{this.props.name}</div>
-        <div className="item-price">{this.props.price}</div>
+        {this.props.prices && (
+          <div className="item-price">{this.props.prices[0].amount}</div>
+        )}
         <div className="cart-overlay">
           <Cart />
         </div>
