@@ -1,6 +1,9 @@
 import * as React from "react";
+import { withRouter } from "react-router-dom";
 
-interface Props {}
+interface Props {
+  id?: string;
+}
 
 interface State {}
 
@@ -8,6 +11,8 @@ class ProductDisplay extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {};
+
+    console.log(props);
   }
   render() {
     return (
@@ -74,4 +79,4 @@ class ProductDisplay extends React.Component<Props, State> {
   }
 }
 
-export default ProductDisplay;
+export default withRouter(ProductDisplay);
