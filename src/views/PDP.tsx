@@ -1,18 +1,26 @@
 import * as React from "react";
 import { withRouter } from "react-router-dom";
-
-interface Props {
-  id?: string;
-}
+// import PropTypes from "prop-types";
 
 interface State {}
+// static propTypes = {
+//   match: PropTypes.object.isRequired,
+//   location: PropTypes.object.isRequired,
+//   history: PropTypes.object.isRequired
+// };
+
+interface Props {
+  match: any;
+  location: any;
+  history: any;
+}
 
 class ProductDisplay extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {};
 
-    console.log(props);
+    console.log("props");
   }
   render() {
     return (

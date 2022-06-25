@@ -2,21 +2,18 @@ import React from "react";
 import "./scss/index.scss";
 import ProductDisplay from "./views/PDP";
 import ProductList from "./views/PLP";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import NotFound from "./views/NotFound";
+import {
+  BrowserRouter as Router,
+  Switch as Routes,
+  Route,
+} from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Cart from "./views/Cart";
 import { gql } from "@apollo/client";
 import client from "./graph/getClient";
+import NotFound from "./views/NotFound";
 
 class App extends React.Component<{}, {}> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      rates: [],
-    };
-  }
-
   fetchRates() {
     client
       .query({
@@ -42,10 +39,10 @@ class App extends React.Component<{}, {}> {
           <NavBar />
           <div id="appcontent">
             <Routes>
-              <Route path="/" element={<ProductList />} />
-              <Route path="/product" element={<ProductDisplay />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="*" element={<NotFound />} />
+              <Route path="/product" component={ProductDisplay} />
+              <Route path="/cart" component={Cart} />
+              <Route exact path="/" component={ProductList} />
+              <Route path="*" component={NotFound} />
             </Routes>
           </div>
         </div>
