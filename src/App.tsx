@@ -39,9 +39,9 @@ class App extends React.Component<{}, {}> {
           <NavBar />
           <div id="appcontent">
             <Routes>
-              <Route path="/product" component={ProductDisplay} />
-              <Route path="/cart" component={Cart} />
               <Route exact path="/" component={ProductList} />
+              <Route path="/product/:id" component={ProductDisplay} />
+              <Route path="/cart" component={Cart} />
               <Route path="*" component={NotFound} />
             </Routes>
           </div>

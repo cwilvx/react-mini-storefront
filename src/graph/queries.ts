@@ -35,6 +35,7 @@ export function getProduct(id: string) {
       product(id: "${id}") {
         ...partialProd
         description
+        brand
         attributes {
           id
           type

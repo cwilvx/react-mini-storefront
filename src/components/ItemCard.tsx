@@ -6,7 +6,7 @@ import { Product } from "../interfaces";
 class ItemCard extends React.Component<Product, { counter: number }> {
   render() {
     return (
-      <Link to="/product" className="itemcard h-shadow">
+      <Link to={`/product/${this.props.id}`} className="itemcard h-shadow">
         <img src={this.props.gallery[0]} alt="" />
         <div className="item-name">{this.props.name}</div>
         {this.props.prices && (
