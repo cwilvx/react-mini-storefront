@@ -7,11 +7,16 @@ import { ReactComponent as CartSvg } from "../images/cart.svg";
 import CSwitcher from "./nav/Switcher";
 import CartOverlay from "./nav/CartOverlay";
 import { Link } from "react-router-dom";
+import { Category } from "../interfaces";
 
-interface Props {}
+interface Props {
+  categories: Category[];
+  changeCat: (cat: string) => void;
+}
 
 interface State {
   showCart: boolean;
+  categories: Category[];
 }
 
 class NavBar extends React.Component<Props, State> {
@@ -19,6 +24,7 @@ class NavBar extends React.Component<Props, State> {
     super(props);
     this.state = {
       showCart: false,
+      categories: [],
     };
     this.toggleCart = this.toggleCart.bind(this);
     this.hideCart = this.hideCart.bind(this);
@@ -44,9 +50,18 @@ class NavBar extends React.Component<Props, State> {
       <div id="navbar">
         <div id="actual-nav">
           <div className="left">
-            <div className="nav-item active">WOMEN</div>
-            <div className="nav-item">MEN</div>
-            <div className="nav-item">KIDS</div>
+            {this.props.categories &&
+              this.props.categories.map((cat) => {
+                return (
+                  <div
+                    className="nav-item"
+                    key={cat.name}
+                    onClick={() => this.props.changeCat(cat.name)}
+                  >
+                    {cat.name}
+                  </div>
+                );
+              })}
           </div>
           <div className="center">
             <Link to="/">

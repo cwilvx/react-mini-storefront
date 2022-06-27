@@ -9,44 +9,78 @@ import {
 } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Cart from "./views/Cart";
-import { gql } from "@apollo/client";
 import client from "./graph/getClient";
 import NotFound from "./views/NotFound";
+import { getCategories } from "./graph/queries";
+import { Category } from "./interfaces";
 
-class App extends React.Component<{}, {}> {
-  fetchRates() {
-    client
-      .query({
-        query: gql`
-          query getSinf {
-            categories {
-              name
-              products {
-                name
-                id
-              }
-            }
-          }
-        `,
-      })
-      .then((result) => console.log(result.data));
+interface AppState {
+  categories: Category[];
+  current_cat: string;
+}
+
+class App extends React.Component<{}, AppState> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      categories: [],
+      current_cat: "",
+    };
+  }
+
+  changeCat = (cat: string) => {
+    console.log(cat);
+    this.setState({ current_cat: cat });
+  };
+
+  async fetchCategories() {
+    const res = await client.query({
+      query: getCategories,
+    });
+    return res.data.categories;
+  }
+
+  getCategories() {
+    this.fetchCategories().then((categories) => {
+      this.setState({
+        categories,
+        current_cat: categories[0].name,
+      });
+    });
+
+    setTimeout(() => {
+      console.log(this.state.categories);
+    }, 1000);
+  }
+
+  componentDidMount() {
+    this.getCategories();
   }
 
   render() {
     return (
-      <Router>
-        <div id="app">
-          <NavBar />
-          <div id="appcontent">
-            <Routes>
-              <Route exact path="/" component={ProductList} />
-              <Route path="/product/:id" component={ProductDisplay} />
-              <Route path="/cart" component={Cart} />
-              <Route path="*" component={NotFound} />
-            </Routes>
-          </div>
-        </div>
-      </Router>
+      <div>
+        {this.state.categories && (
+          <Router>
+            <div id="app">
+              <NavBar
+                categories={this.state.categories}
+                changeCat={this.changeCat}
+              />
+              <div id="appcontent">
+                <Routes>
+                  <Route exact path="/">
+                    <ProductList cat_name={this.state.current_cat} />
+                  </Route>
+                  <Route path="/product/:id" component={ProductDisplay} />
+                  <Route path="/cart" component={Cart} />
+                  <Route path="*" component={NotFound} />
+                </Routes>
+              </div>
+            </div>
+          </Router>
+        )}
+      </div>
     );
   }
 }

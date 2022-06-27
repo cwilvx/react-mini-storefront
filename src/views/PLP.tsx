@@ -2,51 +2,58 @@ import React from "react";
 import ItemCard from "../components/ItemCard";
 import client from "../graph/getClient";
 import { Category } from "../interfaces";
-import { getCategories } from "../graph/queries";
+import { getCategory } from "../graph/queries";
 
 interface State {
-  categories: Category[];
+  category: Category;
 }
 
-class ProductList extends React.Component<{}, State> {
+interface Props {
+  cat_name: string;
+}
+
+class ProductList extends React.Component<Props, State> {
   constructor(props: any) {
     super(props);
     this.state = {
-      categories: [],
+      category: {} as Category,
     };
   }
 
-  async getCategories() {
-    client
-      .query({
-        query: getCategories,
-      })
-      .then((res) => {
-        this.setState({
-          categories: res.data.categories,
-        });
-      });
+  async getCategory() {
+    const res = await client.query({
+      query: getCategory(this.props.cat_name),
+    });
+
+    this.setState({
+      category: res.data.category,
+    });
   }
 
   componentDidMount() {
-    this.getCategories();
+    this.getCategory();
+  }
+
+  componentDidUpdate(prevProps: any) {
+    if (prevProps.cat_name !== this.props.cat_name) {
+      this.getCategory();
+    }
   }
 
   render() {
     return (
       <div id="productlist">
-        {this.state.categories.map((category) => {
-          return (
-            <div key={category.name}>
-              <h1>{category.name}</h1>
-              <div className="prod-list">
-                {category.products.map((product) => {
-                  return <ItemCard {...product} key={product.name} />;
+        {this.state.category && (
+          <div>
+            <h1>{this.state.category.name}</h1>
+            <div className="prod-list">
+              {this.state.category.products &&
+                this.state.category.products.map((product) => {
+                  return <ItemCard {...product} key={product.id} />;
                 })}
-              </div>
             </div>
-          );
-        })}
+          </div>
+        )}
       </div>
     );
   }

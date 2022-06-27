@@ -17,16 +17,40 @@ const partialProd = gql`
 `;
 
 export const getCategories = gql`
-  ${partialProd}
   query getCategories {
     categories {
       name
-      products {
-        ...partialProd
-      }
     }
   }
 `;
+
+export function getCategory(name: string) {
+  return gql`
+    ${partialProd}
+    query getCategory {
+      category(input: {
+        title: "${name}"
+      }) {
+        name
+        products {
+          ...partialProd
+        }
+      }
+    }
+  `;
+}
+
+// export const getCategory = gql`
+//   ${partialProd}
+//   query getCategories {
+//     categories {
+//       name
+//       products {
+//         ...partialProd
+//       }
+//     }
+//   }
+// `;
 
 export function getProduct(id: string) {
   return gql`
