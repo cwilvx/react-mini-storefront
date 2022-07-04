@@ -8,10 +8,14 @@
   margin: 0 auto;
   z-index: 10;
   background-color: $white;
-  
+
+  a {
+    color: $black;
+    text-decoration: none;
+  }
+
   #actual-nav {
     padding: $small 1rem;
-    // width: 100%;
     display: grid;
     grid-template-columns: 1fr max-content 1fr;
 
@@ -36,7 +40,7 @@
 
   .drop {
     // border: solid;
-    transition: all .2s ease-in-out;
+    transition: all 0.2s ease-in-out;
   }
 
   .right {

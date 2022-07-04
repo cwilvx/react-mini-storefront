@@ -9,11 +9,11 @@ interface State {
 }
 
 interface Props {
-  cat_name: string;
+  cat_name: any;
 }
 
 class ProductList extends React.Component<Props, State> {
-  constructor(props: any) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       category: {} as Category,

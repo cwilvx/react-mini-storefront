@@ -53,12 +53,8 @@ class NavBar extends React.Component<Props, State> {
             {this.props.categories &&
               this.props.categories.map((cat) => {
                 return (
-                  <div
-                    className="nav-item"
-                    key={cat.name}
-                    onClick={() => this.props.changeCat(cat.name)}
-                  >
-                    {cat.name}
+                  <div className="nav-item" key={cat.name}>
+                    <Link to={`/?cat=${cat.name}`}>{cat.name}</Link>
                   </div>
                 );
               })}

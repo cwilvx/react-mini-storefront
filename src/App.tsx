@@ -1,35 +1,36 @@
 import React from "react";
+import { Switch as Routes, Route, withRouter } from "react-router-dom";
+
 import "./scss/index.scss";
 import ProductDisplay from "./views/PDP";
 import ProductList from "./views/PLP";
-import {
-  BrowserRouter as Router,
-  Switch as Routes,
-  Route,
-} from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Cart from "./views/Cart";
 import client from "./graph/getClient";
 import NotFound from "./views/NotFound";
 import { getCategories } from "./graph/queries";
 import { Category } from "./interfaces";
-
 interface AppState {
   categories: Category[];
-  current_cat: string;
+  current_cat: string | null;
 }
 
-class App extends React.Component<{}, AppState> {
-  constructor(props: any) {
+interface AppProps {
+  match: any;
+  location: any;
+  history: any;
+}
+
+class App extends React.Component<AppProps, AppState> {
+  constructor(props: AppProps) {
     super(props);
     this.state = {
       categories: [],
-      current_cat: "",
+      current_cat: null,
     };
   }
 
   changeCat = (cat: string) => {
-    console.log(cat);
     this.setState({ current_cat: cat });
   };
 
@@ -40,49 +41,53 @@ class App extends React.Component<{}, AppState> {
     return res.data.categories;
   }
 
+  handleCat(location: any) {
+    const cat = location.search.split("=")[1];
+    this.changeCat(cat ? cat : this.state.categories[0].name);
+  }
+
   getCategories() {
     this.fetchCategories().then((categories) => {
-      this.setState({
-        categories,
-        current_cat: categories[0].name,
-      });
+      this.setState(
+        {
+          categories,
+        },
+        () => this.handleCat(this.props.location)
+      );
     });
-
-    setTimeout(() => {
-      console.log(this.state.categories);
-    }, 1000);
   }
 
   componentDidMount() {
     this.getCategories();
+    this.props.history.listen((location: any) => {
+      this.handleCat(location);
+    });
   }
 
   render() {
     return (
       <div>
         {this.state.categories && (
-          <Router>
-            <div id="app">
-              <NavBar
-                categories={this.state.categories}
-                changeCat={this.changeCat}
-              />
-              <div id="appcontent">
-                <Routes>
-                  <Route exact path="/">
-                    <ProductList cat_name={this.state.current_cat} />
-                  </Route>
-                  <Route path="/product/:id" component={ProductDisplay} />
-                  <Route path="/cart" component={Cart} />
-                  <Route path="*" component={NotFound} />
-                </Routes>
-              </div>
+          <div id="app">
+            <NavBar
+              categories={this.state.categories}
+              changeCat={this.changeCat}
+            />
+            <div id="appcontent">
+              <Routes>
+                <Route exact path="/">
+                  <ProductList cat_name={this.state.current_cat} />
+                </Route>
+                <Route path="/product/:id" component={ProductDisplay} />
+                <Route path="/cart" component={Cart} />
+                <Route path="*" component={NotFound} />
+              </Routes>
             </div>
-          </Router>
+          </div>
         )}
       </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
