@@ -94,11 +94,13 @@ class ProductDisplay extends React.Component<Props, State> {
                       <div className="attr-list is_swatch">
                         {attribute.items.map((item) => {
                           return (
-                            <button
-                              className="color"
-                              style={{ backgroundColor: item.value }}
-                              key={item.id}
-                            ></button>
+                            <div className="selected">
+                              <button
+                                className="color"
+                                style={{ backgroundColor: item.value }}
+                                key={item.id}
+                              ></button>
+                            </div>
                           );
                         })}
                       </div>

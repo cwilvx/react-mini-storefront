@@ -10,6 +10,7 @@ import client from "./graph/getClient";
 import NotFound from "./views/NotFound";
 import { getCategories } from "./graph/queries";
 import { Category } from "./interfaces";
+
 interface AppState {
   categories: Category[];
   current_cat: string | null;
