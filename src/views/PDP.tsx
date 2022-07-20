@@ -16,7 +16,7 @@ interface Props {
 }
 
 /**
- *
+ * Strips Javascript from a string
  * @param {string} html HTML string to be parsed
  * @returns {string} HTML string with stripped scripts
  */

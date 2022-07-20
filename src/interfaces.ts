@@ -1,3 +1,7 @@
+/**
+ * This file defines the interfaces that are used by the application.
+ */
+
 export interface Category {
   name: string;
   products: Product[];
@@ -36,4 +40,14 @@ export interface Attribute {
   displayValue: string;
   value: string;
   id?: string;
+}
+
+export interface CartAttrs {
+  attr_id: string;
+  item_id: string;
+}
+
+export interface cartItem {
+  id: string;
+  attributes: CartAttrs[];
 }
