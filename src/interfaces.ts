@@ -42,12 +42,22 @@ export interface Attribute {
   id?: string;
 }
 
-export interface CartAttrs {
+export interface CartAttr {
   attr_id: string;
   item_id: string;
 }
 
 export interface cartItem {
   id: string;
-  attributes: CartAttrs[];
+  attributes: CartAttr[];
+}
+
+export interface Cart {
+  items: cartItem[];
+}
+
+export interface Store {
+  state: {
+    cart: Cart;
+  };
 }

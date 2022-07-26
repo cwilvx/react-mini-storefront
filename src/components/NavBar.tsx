@@ -1,23 +1,31 @@
 import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { getCartItems } from "../store/selectors";
+
+import { ReactComponent as CartSvg } from "../images/cart.svg";
+import { ReactComponent as DollarSvg } from "../images/dollar.svg";
 import { ReactComponent as DropSvg } from "../images/drop.svg";
 import { ReactComponent as LogoSvg } from "../images/logo.svg";
-import { ReactComponent as DollarSvg } from "../images/dollar.svg";
-import { ReactComponent as CartSvg } from "../images/cart.svg";
 
-import CSwitcher from "./nav/Switcher";
-import CartOverlay from "./nav/CartOverlay";
-import { Link } from "react-router-dom";
 import { Category } from "../interfaces";
+import CartOverlay from "./nav/CartOverlay";
+import CSwitcher from "./nav/Switcher";
 
 interface Props {
   categories: Category[];
   changeCat: (cat: string) => void;
+  items: any[];
 }
 
 interface State {
   showCart: boolean;
   categories: Category[];
 }
+
+const mapStateToProps = (state: any) => {
+  return { items: getCartItems({ state }) };
+};
 
 class NavBar extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -59,6 +67,7 @@ class NavBar extends React.Component<Props, State> {
                 );
               })}
           </div>
+          {this.props.items.length}
           <div className="center">
             <Link to="/">
               <LogoSvg />
@@ -92,4 +101,4 @@ class NavBar extends React.Component<Props, State> {
   }
 }
 
-export default NavBar;
+export default connect(mapStateToProps)(NavBar);

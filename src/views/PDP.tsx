@@ -1,18 +1,24 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+
 import client from "../graph/getClient";
 import { getProduct } from "../graph/queries";
-import { Product } from "../interfaces";
+import { AttributeSet, CartAttr, cartItem, Product } from "../interfaces";
+
+import { addToCart } from "../store/actions";
 
 interface State {
   product: Product;
   currentImage: number;
+  cartItem: cartItem;
 }
 
 interface Props {
   match: any;
   location: any;
   history: any;
+  addToCart: (product: cartItem) => void;
 }
 
 /**
@@ -33,6 +39,7 @@ class ProductDisplay extends React.Component<Props, State> {
     this.state = {
       product: {} as Product,
       currentImage: 0,
+      cartItem: {} as cartItem,
     };
   }
 
@@ -44,9 +51,67 @@ class ProductDisplay extends React.Component<Props, State> {
       .then((res) => {
         this.setState({
           product: res.data.product,
+          cartItem: {
+            id: res.data.product.id,
+            attributes: this.extractDefaultAttrs(res.data.product.attributes),
+          },
         });
       });
   }
+
+  attrExists(attr: CartAttr) {
+    return this.state.cartItem.attributes.some(
+      (a: CartAttr) => a.attr_id == attr.attr_id
+    );
+  }
+
+  replaceAttr(attr: CartAttr) {
+    this.setState({
+      cartItem: {
+        ...this.state.cartItem,
+        attributes: this.state.cartItem.attributes.map((a: CartAttr) =>
+          a.attr_id === attr.attr_id ? attr : a
+        ),
+      },
+    });
+  }
+
+  /**
+   * Selects a given attribute. Replaces attributes with the same id.
+   * @param attr_id The id of the clicked attribute.
+   * @param item_id The id of the clicked attribute option.
+   */
+  selectAttr(attr_id: string | undefined, item_id: string | undefined) {
+    const attr = {
+      attr_id,
+      item_id,
+    } as CartAttr;
+
+    if (this.attrExists(attr)) {
+      console.log("somehign");
+      this.replaceAttr(attr);
+    }
+
+    this.setState({
+      cartItem: {
+        ...this.state.cartItem,
+        attributes: [...this.state.cartItem.attributes, attr],
+      },
+    });
+  }
+
+  extractDefaultAttrs(attrs: AttributeSet[]) {
+    return attrs.map((attr) => {
+      return {
+        attr_id: attr.id,
+        item_id: attr.items[0].id,
+      } as CartAttr;
+    });
+  }
+
+  handleAddToCart = () => {
+    this.props.addToCart(this.state.cartItem);
+  };
 
   componentDidMount() {
     const pid = this.props.match.params.id as string;
@@ -94,11 +159,10 @@ class ProductDisplay extends React.Component<Props, State> {
                       <div className="attr-list is_swatch">
                         {attribute.items.map((item) => {
                           return (
-                            <div className="selected">
+                            <div className="selected" key={item.id}>
                               <button
                                 className="color"
                                 style={{ backgroundColor: item.value }}
-                                key={item.id}
                               ></button>
                             </div>
                           );
@@ -107,7 +171,16 @@ class ProductDisplay extends React.Component<Props, State> {
                     ) : (
                       <div className="attr-list">
                         {attribute.items.map((item) => {
-                          return <button key={item.id}>{item.value}</button>;
+                          return (
+                            <button
+                              key={item.id}
+                              onClick={() =>
+                                this.selectAttr(attribute.id, item.id)
+                              }
+                            >
+                              {item.value}
+                            </button>
+                          );
                         })}
                       </div>
                     )}
@@ -119,7 +192,9 @@ class ProductDisplay extends React.Component<Props, State> {
             <div className="h">PRICE:</div>
             <div>$ 50</div>
           </div>
-          <button className="button bg-primary">ADD TO CART</button>
+          <button className="button bg-primary" onClick={this.handleAddToCart}>
+            ADD TO CART
+          </button>
           {this.state.product.description && (
             <div
               className="info"
@@ -134,4 +209,4 @@ class ProductDisplay extends React.Component<Props, State> {
   }
 }
 
-export default withRouter(ProductDisplay);
+export default connect(null, { addToCart })(withRouter(ProductDisplay));
