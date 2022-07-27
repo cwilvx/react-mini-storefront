@@ -15,7 +15,7 @@ import CSwitcher from "./nav/Switcher";
 interface Props {
   categories: Category[];
   changeCat: (cat: string) => void;
-  items: any[];
+  item_count: number;
 }
 
 interface State {
@@ -23,8 +23,8 @@ interface State {
   categories: Category[];
 }
 
-const mapStateToProps = (state: any) => {
-  return { items: getCartItems({ state }) };
+const mapStateToProps = (store: any) => {
+  return { item_count: getCartItems({ state: store }).length };
 };
 
 class NavBar extends React.Component<Props, State> {
@@ -67,7 +67,6 @@ class NavBar extends React.Component<Props, State> {
                 );
               })}
           </div>
-          {this.props.items.length}
           <div className="center">
             <Link to="/">
               <LogoSvg />
@@ -89,7 +88,7 @@ class NavBar extends React.Component<Props, State> {
               >
                 <CartSvg />
                 <div className="cart-count circular">
-                  <span>3</span>
+                  <span>{this.props.item_count}</span>
                 </div>
               </div>
               {this.state.showCart ? <CartOverlay {...this.cartProps} /> : null}

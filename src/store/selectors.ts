@@ -17,3 +17,11 @@ export function itemInCart(store: Store, item_id: string): boolean {
   const items = getCartItems(store);
   return items.some((item: cartItem) => item.id === item_id);
 }
+
+export function getCartItemById(
+  state: any,
+  item_id: string
+): cartItem | undefined {
+  const items = state.cart.items;
+  return items.find((item: cartItem) => item.id === item_id);
+}

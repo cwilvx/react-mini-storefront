@@ -61,7 +61,30 @@
       text-transform: uppercase;
     }
 
-    .attr-list {
+    .is_swatch {
+      display: flex;
+      flex-wrap: wrap;
+
+      & > * {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: solid 2px transparent;
+        padding: 2px;
+      }
+
+      button {
+        border: none;
+        height: 2rem;
+        width: 2rem;
+      }
+
+      .selected {
+        border: solid 2px $primary;
+      }
+    }
+
+    .other-attrs {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(3rem, 1fr));
       gap: $smaller;
@@ -72,26 +95,12 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        border: solid 1px $black;
       }
-    }
-
-    .is_swatch {
-      grid-template-columns: repeat(auto-fill, minmax(2rem, 1fr));
-      gap: 0.25rem;
 
       .selected {
-        height: 2.1rem;
-        width: 2.1rem;
-        border: solid 1px $primary;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.1rem;
-      }
-
-      .color {
-        height: 2rem;
-        width: 2rem;
+        background-color: $black;
+        color: $white;
       }
     }
 
