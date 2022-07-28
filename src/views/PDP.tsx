@@ -1,17 +1,21 @@
-import { createBrowserHistory } from "history";
 import * as React from "react";
 import { connect } from "react-redux";
 
 import client from "../graph/getClient";
 import { getProduct } from "../graph/queries";
-import { AttributeSet, CartAttr, CartItem, Product } from "../interfaces";
-
 import { addToCart } from "../store/actions";
 import { getCartItemById } from "../store/selectors";
 
+import Gallery from "../components/PDP/Gallery";
+import {
+  extractDefaultAttrs,
+  getItemIdfromUrl,
+  stripScripts,
+} from "../composables";
+import { CartAttr, CartItem, Product } from "../interfaces";
+
 interface State {
   product: Product;
-  currentImage: number;
   cartItem: CartItem;
 }
 
@@ -20,18 +24,12 @@ interface Props {
   addToCart: (product: CartItem) => void;
 }
 
-function getIdfromUrl() {
-  const location = createBrowserHistory().location;
-  const url = location.pathname.split("/")[2];
-  return url;
-}
-
 let mapStatNotExecuted = true;
 
 const mapStateToProps = (store: any) => {
   console.log(store.cart.items);
   if (mapStatNotExecuted) {
-    const id = getIdfromUrl();
+    const id = getItemIdfromUrl();
 
     mapStatNotExecuted = false;
 
@@ -48,19 +46,12 @@ const mapStateToProps = (store: any) => {
  * @param {string} html HTML string to be parsed
  * @returns {string} HTML string with stripped scripts
  */
-function stripScripts(html: string): string {
-  return html.replace(
-    /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
-    ""
-  );
-}
 
 class ProductDisplay extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
       product: {} as Product,
-      currentImage: 0,
       cartItem: {
         selectedAttrs: [],
         gallery: [],
@@ -99,17 +90,11 @@ class ProductDisplay extends React.Component<Props, State> {
       cartItem: {
         ...this.state.product,
         description: null,
-        selectedAttrs: this.extractDefaultAttrs(product.attributes),
+        selectedAttrs: extractDefaultAttrs(product.attributes),
         quantity: 0,
       },
     });
   }
-
-  // attrExists(attr: CartAttr) {
-  //   return this.state.cartItem.attributes.some(
-  //     (a: CartAttr) => a.attr_id === attr.attr_id
-  //   );
-  // }
 
   replaceAttr(attr: CartAttr) {
     console.log("repl");
@@ -141,24 +126,14 @@ class ProductDisplay extends React.Component<Props, State> {
     this.replaceAttr(attr);
   }
 
-  extractDefaultAttrs(attrs: AttributeSet[]) {
-    return attrs.map((attr) => {
-      return {
-        attr_id: attr.id,
-        item_id: attr.items[0].id,
-      } as CartAttr;
-    });
-  }
-
   handleAddToCart = () => {
-    // console.log(this.state.cartItem);
     this.props.addToCart(this.state.cartItem);
   };
 
   // ================ LIFECYCLE HOOKS =====================
 
   componentDidMount() {
-    const pid = getIdfromUrl();
+    const pid = getItemIdfromUrl();
     this.fetchProduct(pid);
   }
 
@@ -166,44 +141,12 @@ class ProductDisplay extends React.Component<Props, State> {
     mapStatNotExecuted = true;
   }
 
-  componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>) {
-    if (!this.props.cartItem) return;
-
-    if (prevProps.cartItem !== this.props.cartItem) {
-      this.setState({
-        cartItem: this.props.cartItem,
-      });
-    }
-  }
-
   // ======================================================
 
   render() {
     return (
       <div id="productdisplay">
-        <div className="thumbs">
-          {this.state.product.gallery &&
-            this.state.product.gallery.map((image, index) => {
-              return (
-                <div
-                  className="thumb"
-                  key={image}
-                  onClick={() => this.setState({ currentImage: index })}
-                >
-                  <img src={image} alt="thumbnail preview" />
-                </div>
-              );
-            })}
-        </div>
-        <div className="preview">
-          <img
-            src={
-              this.state.product.gallery &&
-              this.state.product.gallery[this.state.currentImage]
-            }
-            alt="main preview"
-          />
-        </div>
+        {<Gallery images={this.state.product.gallery} />}
         <div className="details">
           <div className="name">
             <h2 className="company">{this.state.product.brand}</h2>

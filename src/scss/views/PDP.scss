@@ -1,8 +1,14 @@
 #productdisplay {
   margin-top: 4rem;
   display: grid;
-  grid-template-columns: max-content 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 2rem;
+
+  .gallery {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 2rem;
+  }
 
   .thumbs {
     display: flex;
