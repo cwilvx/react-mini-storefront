@@ -1,10 +1,10 @@
+import { createBrowserHistory } from "history";
 import * as React from "react";
 import { connect } from "react-redux";
-import { createBrowserHistory } from "history";
 
 import client from "../graph/getClient";
 import { getProduct } from "../graph/queries";
-import { AttributeSet, CartAttr, cartItem, Product } from "../interfaces";
+import { AttributeSet, CartAttr, CartItem, Product } from "../interfaces";
 
 import { addToCart } from "../store/actions";
 import { getCartItemById } from "../store/selectors";
@@ -12,12 +12,12 @@ import { getCartItemById } from "../store/selectors";
 interface State {
   product: Product;
   currentImage: number;
-  cartItem: cartItem;
+  cartItem: CartItem;
 }
 
 interface Props {
-  cartItem: cartItem | undefined;
-  addToCart: (product: cartItem) => void;
+  cartItem: CartItem | undefined;
+  addToCart: (product: CartItem) => void;
 }
 
 function getIdfromUrl() {
@@ -29,10 +29,12 @@ function getIdfromUrl() {
 let mapStatNotExecuted = true;
 
 const mapStateToProps = (store: any) => {
+  console.log(store.cart.items);
   if (mapStatNotExecuted) {
     const id = getIdfromUrl();
 
     mapStatNotExecuted = false;
+
     return {
       cartItem: getCartItemById(store, id),
     };
@@ -60,9 +62,11 @@ class ProductDisplay extends React.Component<Props, State> {
       product: {} as Product,
       currentImage: 0,
       cartItem: {
-        id: "",
+        selectedAttrs: [],
+        gallery: [],
         attributes: [],
-      } as cartItem,
+        quantity: 0,
+      } as CartItem,
     };
   }
 
@@ -79,33 +83,40 @@ class ProductDisplay extends React.Component<Props, State> {
         return res.data.product as Product;
       })
       .then((product) => {
-        if (this.props.cartItem) {
-          this.setState({
-            cartItem: this.props.cartItem,
-          });
-          return;
-        }
-
-        this.setState({
-          cartItem: {
-            id: product.id as string,
-            attributes: this.extractDefaultAttrs(product.attributes),
-          },
-        });
+        this.setDefaultCartItem(product);
       });
   }
 
-  attrExists(attr: CartAttr) {
-    return this.state.cartItem.attributes.some(
-      (a: CartAttr) => a.attr_id === attr.attr_id
-    );
+  setDefaultCartItem(product: Product) {
+    if (this.props.cartItem) {
+      this.setState({
+        cartItem: this.props.cartItem,
+      });
+      return;
+    }
+
+    this.setState({
+      cartItem: {
+        ...this.state.product,
+        description: null,
+        selectedAttrs: this.extractDefaultAttrs(product.attributes),
+        quantity: 0,
+      },
+    });
   }
 
+  // attrExists(attr: CartAttr) {
+  //   return this.state.cartItem.attributes.some(
+  //     (a: CartAttr) => a.attr_id === attr.attr_id
+  //   );
+  // }
+
   replaceAttr(attr: CartAttr) {
+    console.log("repl");
     this.setState({
       cartItem: {
         ...this.state.cartItem,
-        attributes: this.state.cartItem.attributes.map((a: CartAttr) => {
+        selectedAttrs: this.state.cartItem.selectedAttrs.map((a: CartAttr) => {
           if (a.attr_id === attr.attr_id) {
             return attr;
           }
@@ -140,8 +151,11 @@ class ProductDisplay extends React.Component<Props, State> {
   }
 
   handleAddToCart = () => {
+    // console.log(this.state.cartItem);
     this.props.addToCart(this.state.cartItem);
   };
+
+  // ================ LIFECYCLE HOOKS =====================
 
   componentDidMount() {
     const pid = getIdfromUrl();
@@ -151,6 +165,18 @@ class ProductDisplay extends React.Component<Props, State> {
   componentWillUnmount() {
     mapStatNotExecuted = true;
   }
+
+  componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>) {
+    if (!this.props.cartItem) return;
+
+    if (prevProps.cartItem !== this.props.cartItem) {
+      this.setState({
+        cartItem: this.props.cartItem,
+      });
+    }
+  }
+
+  // ======================================================
 
   render() {
     return (
@@ -196,7 +222,7 @@ class ProductDisplay extends React.Component<Props, State> {
                             <div
                               key={item.id}
                               className={
-                                this.state.cartItem.attributes.some(
+                                this.state.cartItem.selectedAttrs.some(
                                   (a: CartAttr) =>
                                     a.item_id === item.id &&
                                     a.attr_id === attribute.id
@@ -222,7 +248,7 @@ class ProductDisplay extends React.Component<Props, State> {
                           return (
                             <button
                               className={
-                                this.state.cartItem.attributes.some(
+                                this.state.cartItem.selectedAttrs.some(
                                   (a: CartAttr) =>
                                     a.item_id === item.id &&
                                     a.attr_id === attribute.id

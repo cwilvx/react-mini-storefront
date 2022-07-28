@@ -10,9 +10,9 @@ export interface Category {
 export interface Product {
   id?: string;
   name?: string;
-  inStock: Boolean;
+  inStock?: Boolean;
   gallery: string[];
-  description?: string;
+  description?: string | null;
   category?: string;
   attributes: AttributeSet[];
   prices?: Price[];
@@ -47,13 +47,13 @@ export interface CartAttr {
   item_id: string;
 }
 
-export interface cartItem {
-  id: string;
-  attributes: CartAttr[];
+export interface CartItem extends Product {
+  selectedAttrs: CartAttr[];
+  quantity: number;
 }
 
 export interface Cart {
-  items: cartItem[];
+  items: CartItem[];
 }
 
 export interface Store {
