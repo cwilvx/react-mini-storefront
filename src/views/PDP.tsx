@@ -13,6 +13,7 @@ import {
   stripScripts,
 } from "../composables";
 import { CartAttr, CartItem, Product } from "../interfaces";
+import Attrs from "../components/PDP/Attrs";
 
 interface State {
   product: Product;
@@ -152,68 +153,11 @@ class ProductDisplay extends React.Component<Props, State> {
             <h2 className="company">{this.state.product.brand}</h2>
             <h2 className="light">{this.state.product.name}</h2>
           </div>
-          <div className="attributes">
-            {this.state.product.attributes &&
-              this.state.product.attributes.map((attribute) => {
-                return (
-                  <div key={attribute.id}>
-                    <h4 className="attr-h">{attribute.name}</h4>
-                    {attribute.type === "swatch" ? (
-                      <div className="is_swatch">
-                        {attribute.items.map((item) => {
-                          return (
-                            <div
-                              key={item.id}
-                              className={
-                                this.state.cartItem.selectedAttrs.some(
-                                  (a: CartAttr) =>
-                                    a.item_id === item.id &&
-                                    a.attr_id === attribute.id
-                                )
-                                  ? "selected"
-                                  : ""
-                              }
-                            >
-                              <button
-                                className="color"
-                                style={{ backgroundColor: item.value }}
-                                onClick={() =>
-                                  this.selectAttr(attribute.id, item.id)
-                                }
-                              ></button>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    ) : (
-                      <div className="other-attrs">
-                        {attribute.items.map((item) => {
-                          return (
-                            <button
-                              className={
-                                this.state.cartItem.selectedAttrs.some(
-                                  (a: CartAttr) =>
-                                    a.item_id === item.id &&
-                                    a.attr_id === attribute.id
-                                )
-                                  ? "selected"
-                                  : ""
-                              }
-                              key={item.id}
-                              onClick={() =>
-                                this.selectAttr(attribute.id, item.id)
-                              }
-                            >
-                              {item.value}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-          </div>
+          <Attrs
+            attrs={this.state.product.attributes}
+            selectedAttrs={this.state.cartItem.selectedAttrs}
+            selectAttr={this.selectAttr.bind(this)}
+          />
           <div className="price bold">
             <div className="h">PRICE:</div>
             <div>$ 50</div>
