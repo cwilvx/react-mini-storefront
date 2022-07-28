@@ -49,7 +49,7 @@ class ProductList extends React.Component<Props, State> {
             <div className="prod-list">
               {this.state.category.products &&
                 this.state.category.products.map((product) => {
-                  return <ItemCard {...product} key={product.id} />;
+                  return <ItemCard product={product} key={product.id} />;
                 })}
             </div>
           </div>

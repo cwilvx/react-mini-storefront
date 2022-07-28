@@ -1,14 +1,13 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import client from "../graph/getClient";
-import { getProduct } from "../graph/queries";
 import { addToCart } from "../store/actions";
 import { getCartItemById } from "../store/selectors";
 
 import Gallery from "../components/PDP/Gallery";
 import {
   extractDefaultAttrs,
+  fetchProduct,
   getItemIdfromUrl,
   stripScripts,
 } from "../composables";
@@ -28,7 +27,6 @@ interface Props {
 let mapStatNotExecuted = true;
 
 const mapStateToProps = (store: any) => {
-  console.log(store.cart.items);
   if (mapStatNotExecuted) {
     const id = getItemIdfromUrl();
 
@@ -62,35 +60,34 @@ class ProductDisplay extends React.Component<Props, State> {
     };
   }
 
-  fetchProduct(pid: string) {
-    client
-      .query({
-        query: getProduct(pid),
-      })
-      .then((res) => {
-        this.setState({
-          product: res.data.product,
-        });
-
-        return res.data.product as Product;
-      })
-      .then((product) => {
-        this.setDefaultCartItem(product);
-      });
-  }
-
-  setDefaultCartItem(product: Product) {
+  parseProductFromCart() {
     if (this.props.cartItem) {
       this.setState({
         cartItem: this.props.cartItem,
+        product: this.props.cartItem,
       });
-      return;
+      return true;
     }
 
+    return false;
+  }
+
+  getProduct(pid: string) {
+    if (this.parseProductFromCart()) return;
+
+    fetchProduct(pid).then((res) => {
+      this.setState({
+        product: res.data.product,
+      });
+
+      this.setDefaultCartItem(res.data.product);
+    });
+  }
+
+  setDefaultCartItem(product: Product) {
     this.setState({
       cartItem: {
         ...this.state.product,
-        description: null,
         selectedAttrs: extractDefaultAttrs(product.attributes),
         quantity: 0,
       },
@@ -135,7 +132,7 @@ class ProductDisplay extends React.Component<Props, State> {
 
   componentDidMount() {
     const pid = getItemIdfromUrl();
-    this.fetchProduct(pid);
+    this.getProduct(pid);
   }
 
   componentWillUnmount() {

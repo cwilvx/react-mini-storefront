@@ -25,13 +25,14 @@ function itemInCart(items: CartItem[], item: CartItem) {
         attrs: i.selectedAttrs,
       } as SimpleItem)
   );
+
   const itemToCheck = {
     id: item.id,
     attrs: item.selectedAttrs,
   } as SimpleItem;
 
   return cart.some(
-    (i: SimpleItem) => i.id === itemToCheck.id && i.attrs === itemToCheck.attrs
+    (i: SimpleItem) => JSON.stringify(i) === JSON.stringify(itemToCheck)
   );
 }
 
@@ -50,7 +51,6 @@ export default function cartReducer(state = initialState, action: cartAction) {
       const { item } = action.payload;
 
       if (itemInCart(state.items, item)) {
-
         return {
           ...state,
           items: incrementItem(state.items, item),
@@ -59,10 +59,7 @@ export default function cartReducer(state = initialState, action: cartAction) {
 
       return {
         ...state,
-        items: [
-          ...state.items,
-          { ...item, quantity: 1 } as CartItem,
-        ],
+        items: [...state.items, { ...item, quantity: 1 } as CartItem],
       };
     }
     default: {
