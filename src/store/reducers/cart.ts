@@ -1,38 +1,16 @@
-import {
-  createSimpleItem,
-  createSimpleItems,
-  decrementItem,
-  incrementItem,
-  removeItem,
-} from "../../composables";
 import { cartActionType, CartItem, SimpleItem } from "@/interfaces";
 import { ActionType } from "../actionTypes";
-
-export const initialState = {
-  items: [] as CartItem[],
-};
-
-// ==================== METHODS ====================
-
-/**
- * Checks the existence of an item in the cart.
- * @param items The cart items to check from
- * @param item The item to check
- * @returns True if the item exists in the cart, false otherwise
- */
-function itemInCart(items: CartItem[], item: CartItem) {
-  const cart = createSimpleItems(items);
-  const itemToCheck = createSimpleItem(item);
-
-  return cart.some(
-    (i: SimpleItem) => JSON.stringify(i) === JSON.stringify(itemToCheck)
-  );
-}
-
-// ==================== REDUCER ====================
+import {
+  incrementItem,
+  removeItem,
+  decrementItem,
+  itemInCart,
+} from "./methods";
 
 export default function AddToCartReducer(
-  state = initialState,
+  state = {
+    items: [] as CartItem[],
+  },
   action: cartActionType
 ) {
   switch (action.type) {
