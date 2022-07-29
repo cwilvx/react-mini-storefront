@@ -1,7 +1,7 @@
 import { CartItem, Store } from "./../interfaces";
 
 export const getCartState = (store: Store) => {
-  return store.state.cart;
+  return store.cart;
 };
 
 export function getCartItems(store: Store) {
@@ -10,7 +10,7 @@ export function getCartItems(store: Store) {
 }
 
 export function getCartItemsCount(state: any) {
-  return getCartItems(state).length;
+  return getCartItems(state).reduce((acc, item) => acc + item.quantity, 0);
 }
 
 export function itemInCart(store: Store, item_id: string): boolean {

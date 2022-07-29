@@ -1,5 +1,6 @@
+import { CartItem } from "@/interfaces";
 import React from "react";
-import CartPageItem from "../components/CartPageItem";
+import CartPageItem from "../components/CartItem";
 interface CartProps {}
 
 interface CartState {}
@@ -14,8 +15,8 @@ class Cart extends React.Component<CartProps, CartState> {
       <div id="cart-page">
         <h2 className="h2">CART</h2>
         <div id="cart-items">
-          <CartPageItem />
-          <CartPageItem />
+          <CartPageItem item={{} as CartItem} />
+          <CartPageItem item={{} as CartItem} />
         </div>
         <div id="metrics">
           <div className="tax">

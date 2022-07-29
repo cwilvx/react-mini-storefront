@@ -14,10 +14,6 @@ interface Props {
 }
 
 class ItemCard extends React.Component<Props, {}> {
-  constructor(props: Props) {
-    super(props);
-  }
-
   handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     if (!this.props.product.id) return;

@@ -1,0 +1,52 @@
+.attributes {
+  .attr-h {
+    font-weight: bold;
+    margin-bottom: $smaller;
+    text-transform: uppercase;
+  }
+
+  .is_swatch {
+    display: flex;
+    flex-wrap: wrap;
+
+    & > * {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: solid 2px transparent;
+      padding: 2px;
+    }
+
+    button {
+      border: none;
+      height: 2rem;
+      width: 2rem;
+    }
+
+    .selected {
+      border: solid 2px $primary;
+    }
+  }
+
+  .other-attrs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(3rem, 1fr));
+    gap: $smaller;
+
+    button {
+      height: 2.5rem;
+      width: 100%;
+      padding: 0 $small !important;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: solid 1px $black;
+    }
+
+    .selected {
+      background-color: $black;
+      color: $white;
+    }
+  }
+}

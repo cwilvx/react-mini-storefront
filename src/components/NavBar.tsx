@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { getCartItems } from "../store/selectors";
+import { getCartItemsCount } from "../store/selectors";
 
 import { ReactComponent as CartSvg } from "../images/cart.svg";
 import { ReactComponent as DollarSvg } from "../images/dollar.svg";
@@ -24,7 +24,7 @@ interface State {
 }
 
 const mapStateToProps = (store: any) => {
-  return { item_count: getCartItems({ state: store }).length };
+  return { item_count: getCartItemsCount(store) };
 };
 
 class NavBar extends React.Component<Props, State> {

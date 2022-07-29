@@ -23,8 +23,8 @@ class Attrs extends React.Component<AttrsProps, AttrsState> {
         {this.props.attrs &&
           this.props.attrs.map((attribute) => {
             return (
-              <div key={attribute.id}>
-                <h4 className="attr-h">{attribute.name}</h4>
+              <div key={attribute.id} className="attr">
+                <h4 className="attr-h">{attribute.name}:</h4>
                 {attribute.type === "swatch" ? (
                   <div className="is_swatch">
                     {attribute.items.map((item) => {

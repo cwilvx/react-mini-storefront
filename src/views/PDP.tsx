@@ -11,8 +11,9 @@ import {
   getItemIdfromUrl,
   stripScripts,
 } from "../composables";
+
 import { CartAttr, CartItem, Product } from "../interfaces";
-import Attrs from "../components/PDP/Attrs";
+import Attrs from "../components/Attrs";
 
 interface State {
   product: Product;

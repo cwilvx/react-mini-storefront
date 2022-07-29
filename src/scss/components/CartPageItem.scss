@@ -1,12 +1,15 @@
 .cart-page-item {
-  height: 15rem;
+  // max-height: 15rem;
   grid-template-columns: 1fr max-content 10rem;
   border-top: 1px solid $gray1;
+  margin-bottom: 1rem;
   padding: 1rem 0;
 
   h2 {
     margin: 0;
+    width: 100%;
   }
+
   .h {
     margin-bottom: $smaller;
     margin-top: $small;
@@ -14,36 +17,14 @@
   }
 
   .price {
-    margin-top: $small;
+    margin: $small 0;
     font-weight: bold;
-  }
-
-  .sizes {
-    margin-top: $small;
-
-    button {
-      height: 2rem;
-      width: auto;
-      aspect-ratio: 1.25/1;
-    }
-  }
-
-  .colors {
-    margin-top: 1rem;
   }
 
   svg {
     width: 2rem;
     height: 2rem;
   }
-  //   .right {
-  //     height: 100%;
-  //     max-width: 15rem;
-  //   }
-  //   img {
-  //     height: 100%;
-  //     aspect-ratio: 1/4;
-  //   }
 
   .right {
     position: relative;
@@ -64,5 +45,55 @@
       height: 1.78rem;
       margin-top: 12rem;
     }
+  }
+}
+
+.cart-overlay-item {
+  .cart-page-item {
+    gap: 0.5rem !important;
+    border: none;
+    padding: 0;
+
+    h2 {
+      font-size: 1.25rem;
+    }
+
+    .img-buttons {
+      display: none;
+    }
+
+    .attributes {
+      // border: solid 1px;
+
+      .attr-h {
+        margin: $smaller 0;
+        text-transform: capitalize;
+      }
+
+      .attr {
+        margin-top: $small;
+      }
+
+      button {
+        height: 1rem;
+        width: 1rem;
+      }
+
+      .other-attrs {
+        button {
+          width: 3rem;
+          max-width: 4rem;
+          height: 2rem;
+        }
+      }
+    }
+  }
+
+  .left {
+    display: block !important;
+  }
+
+  .attrs {
+    border: solid 1px;
   }
 }

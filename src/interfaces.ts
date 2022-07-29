@@ -57,7 +57,5 @@ export interface Cart {
 }
 
 export interface Store {
-  state: {
-    cart: Cart;
-  };
+  cart: Cart;
 }
