@@ -96,7 +96,6 @@ class ProductDisplay extends React.Component<Props, State> {
   }
 
   replaceAttr(attr: CartAttr) {
-    console.log("repl");
     this.setState({
       cartItem: {
         ...this.state.cartItem,

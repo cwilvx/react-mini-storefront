@@ -9,8 +9,8 @@ export function getCartItems(store: Store) {
   return cart.items;
 }
 
-export function getCartItemsCount(state: any) {
-  return getCartItems(state).reduce((acc, item) => acc + item.quantity, 0);
+export function getCartItemsCount(store: Store) {
+  return getCartItems(store).reduce((acc, item) => acc + item.quantity, 0);
 }
 
 export function itemInCart(store: Store, item_id: string): boolean {
@@ -18,7 +18,7 @@ export function itemInCart(store: Store, item_id: string): boolean {
   return items.some((item: CartItem) => item.id === item_id);
 }
 
-export function getCartItemById(state: any, item_id: string) {
-  const items = state.cart.items as CartItem[];
+export function getCartItemById(store: Store, item_id: string) {
+  const items = store.cart.items as CartItem[];
   return items.find((item) => item.id === item_id);
 }

@@ -2,6 +2,8 @@
  * This file defines the interfaces that are used by the application.
  */
 
+import { ActionType } from "./store/actionTypes";
+
 export interface Category {
   name: string;
   products: Product[];
@@ -59,3 +61,34 @@ export interface Cart {
 export interface Store {
   cart: Cart;
 }
+
+export interface SimpleItem {
+  id: string;
+  attrs: CartAttr[];
+}
+
+export interface addToCartAction {
+  type: ActionType.ADD_TO_CART;
+  payload: {
+    item: CartItem;
+  };
+}
+
+export interface incrementItemAction {
+  type: ActionType.INCREMENT_ITEM;
+  payload: {
+    item: CartItem;
+  };
+}
+
+export interface decrementItemAction {
+  type: ActionType.DECREMENT_ITEM;
+  payload: {
+    item: CartItem;
+  };
+}
+
+export type cartActionType =
+  | addToCartAction
+  | incrementItemAction
+  | decrementItemAction;

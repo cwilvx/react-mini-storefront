@@ -1,6 +1,14 @@
 import { CartItem } from "@/interfaces";
-import { ADD_TO_CART } from "./actionTypes";
+import { ActionType } from "./actionTypes";
 
 export const addToCart = (item: CartItem) => {
-  return { type: ADD_TO_CART, payload: { item } };
+  return { type: ActionType.ADD_TO_CART, payload: { item } };
+};
+
+export const incrementQuantity = (item: CartItem) => {
+  return { type: ActionType.INCREMENT_ITEM, payload: { item } };
+};
+
+export const decrementQuantity = (item: CartItem) => {
+  return { type: ActionType.DECREMENT_ITEM, payload: { item } };
 };

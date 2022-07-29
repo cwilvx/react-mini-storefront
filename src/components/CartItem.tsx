@@ -1,23 +1,26 @@
 import React from "react";
-import { ReactComponent as PlusSvg } from "../images/plus.svg";
-import { ReactComponent as MinusSvg } from "../images/minus.svg";
-import { ReactComponent as ArrowSvg } from "../images/arrow.svg";
+import { connect } from "react-redux";
+import { incrementQuantity, decrementQuantity } from "../store/actions";
+
 import { CartItem } from "@/interfaces";
 import Attrs from "./Attrs";
 
-interface CartPageItemProps {
+import { ReactComponent as PlusSvg } from "../images/plus.svg";
+import { ReactComponent as MinusSvg } from "../images/minus.svg";
+import { ReactComponent as ArrowSvg } from "../images/arrow.svg";
+
+interface Props {
   item: CartItem;
+  incrementQuantity: (item: CartItem) => void;
+  decrementQuantity: (item: CartItem) => void;
 }
 
-interface CartPageItemState {
+interface State {
   currentImage: number;
 }
 
-class CartPageItem extends React.Component<
-  CartPageItemProps,
-  CartPageItemState
-> {
-  constructor(props: CartPageItemProps) {
+class CartPageItem extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       currentImage: 0,
@@ -57,11 +60,17 @@ class CartPageItem extends React.Component<
           </div>
         </div>
         <div className="center">
-          <div className="plus">
+          <div
+            className="plus"
+            onClick={() => this.props.incrementQuantity(this.props.item)}
+          >
             <PlusSvg />
           </div>
           <div className="itemcount">{this.props.item.quantity}</div>
-          <div className="minus">
+          <div
+            className="minus"
+            onClick={() => this.props.decrementQuantity(this.props.item)}
+          >
             <MinusSvg />
           </div>
         </div>
@@ -83,4 +92,7 @@ class CartPageItem extends React.Component<
   }
 }
 
-export default CartPageItem;
+export default connect(null, {
+  incrementQuantity,
+  decrementQuantity,
+})(CartPageItem);
