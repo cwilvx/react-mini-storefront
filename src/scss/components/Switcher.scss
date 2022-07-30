@@ -13,6 +13,7 @@
   align-items: center;
   position: relative;
   cursor: pointer;
+  z-index: 20;
 
   .cswitcher-toggle {
     display: flex;

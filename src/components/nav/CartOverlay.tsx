@@ -12,7 +12,6 @@ interface CartProps {
 }
 
 const mapStateToProps = (store: any) => {
-  console.log(store);
   return {
     count: getCartItemsCount(store),
     cartItems: getCartItems(store),

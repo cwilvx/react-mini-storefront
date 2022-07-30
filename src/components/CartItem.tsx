@@ -8,6 +8,7 @@ import Attrs from "./Attrs";
 import { ReactComponent as PlusSvg } from "../images/plus.svg";
 import { ReactComponent as MinusSvg } from "../images/minus.svg";
 import { ReactComponent as ArrowSvg } from "../images/arrow.svg";
+import Price from "./Price";
 
 interface Props {
   item: CartItem;
@@ -50,7 +51,9 @@ class CartPageItem extends React.Component<Props, State> {
         <div className="left">
           <h2>{this.props.item.brand}</h2>
           <h2 className="item-name">{this.props.item.name}</h2>
-          <div className="price">$ 50.00</div>
+          <div className="price">
+            <Price prices={this.props.item.prices} />
+          </div>
           <div className="attributes">
             <Attrs
               attrs={this.props.item.attributes}

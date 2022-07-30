@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import { getCartItemsCount } from "../store/selectors";
 
 import { ReactComponent as CartSvg } from "../images/cart.svg";
-import { ReactComponent as DollarSvg } from "../images/dollar.svg";
-import { ReactComponent as DropSvg } from "../images/drop.svg";
 import { ReactComponent as LogoSvg } from "../images/logo.svg";
 
 import { Category } from "../interfaces";
