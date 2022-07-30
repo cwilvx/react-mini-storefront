@@ -87,9 +87,11 @@ class NavBar extends React.Component<Props, State> {
                 }}
               >
                 <CartSvg />
-                <div className="cart-count circular">
-                  <span>{this.props.item_count}</span>
-                </div>
+                {this.props.item_count > 0 && (
+                  <div className="cart-count circular">
+                    <span>{this.props.item_count}</span>
+                  </div>
+                )}
               </div>
               {this.state.showCart ? <CartOverlay {...this.cartProps} /> : null}
             </div>

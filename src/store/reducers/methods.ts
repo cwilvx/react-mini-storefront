@@ -78,3 +78,4 @@ export function itemInCart(items: CartItem[], item: CartItem) {
     (i: SimpleItem) => JSON.stringify(i) === JSON.stringify(itemToCheck)
   );
 }
+

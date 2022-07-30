@@ -45,21 +45,23 @@ class Cart extends React.Component<CartProps, {}> {
               );
             })}
           </div>
-          <div className="total">
-            <div className="text">Total</div>
-            <div className="total-price">$ 50.00</div>
-          </div>
-          <div
-            className="buttons"
-            onClick={() => {
-              this.props.hideCart();
-            }}
-          >
-            <Link to="/cart">
-              <button className="view-bag button">VIEW BAG</button>
-            </Link>
+          <div className="bottom">
+            <div className="total">
+              <div className="text">Total</div>
+              <div className="total-price">$ 50.00</div>
+            </div>
+            <div
+              className="buttons"
+              onClick={() => {
+                this.props.hideCart();
+              }}
+            >
+              <Link to="/cart">
+                <button className="view-bag button">VIEW BAG</button>
+              </Link>
 
-            <button className="bg-primary button">CHECK OUT</button>
+              <button className="bg-primary button">CHECK OUT</button>
+            </div>
           </div>
         </div>
       </div>

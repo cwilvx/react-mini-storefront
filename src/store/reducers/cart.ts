@@ -1,4 +1,4 @@
-import { cartActionType, CartItem, SimpleItem } from "@/interfaces";
+import { cartActionType, CartItem } from "@/interfaces";
 import { ActionType } from "../actionTypes";
 import {
   incrementItem,
@@ -7,12 +7,16 @@ import {
   itemInCart,
 } from "./methods";
 
+const initialState = {
+  items: [] as CartItem[],
+};
+
 export default function AddToCartReducer(
-  state = {
-    items: [] as CartItem[],
-  },
+  state = initialState,
   action: cartActionType
 ) {
+  const item = action.payload;
+
   switch (action.type) {
     case ActionType.ADD_TO_CART: {
       const { item } = action.payload;

@@ -1,5 +1,4 @@
 .cart-page-item {
-  // max-height: 15rem;
   grid-template-columns: 1fr max-content 10rem;
   border-top: 1px solid $gray1;
   margin-bottom: 1rem;
@@ -53,6 +52,7 @@
     gap: 0.5rem !important;
     border: none;
     padding: 0;
+    margin-bottom: 2.5rem;
 
     h2 {
       font-size: 1.25rem;
@@ -63,7 +63,6 @@
     }
 
     .attributes {
-      // border: solid 1px;
 
       .attr-h {
         margin: $smaller 0;
