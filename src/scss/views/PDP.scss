@@ -31,7 +31,11 @@
       object-fit: cover;
     }
   }
-
+  .btn-disabled {
+    pointer-events: none;
+    opacity: 0.8;
+  }
+  
   .details {
     max-width: 25rem;
 

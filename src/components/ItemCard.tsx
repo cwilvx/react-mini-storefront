@@ -32,16 +32,22 @@ class ItemCard extends React.Component<Props, {}> {
     return (
       <Link
         to={`/product/${this.props.product.id}`}
-        className="itemcard h-shadow"
+        className={`itemcard h-shadow ${
+          !this.props.product.inStock ? "out-of-stock" : ""
+        }`}
       >
-        <img src={this.props.product.gallery[0]} alt="" />
+        <div className="image">
+          <img src={this.props.product.gallery[0]} alt="" />
+          <div className="img-overlay"></div>
+        </div>
+
         <div className="item-name">{this.props.product.name}</div>
         {this.props.product.prices && (
           <div className="item-price">
             {this.props.product.prices[0].amount}
           </div>
         )}
-        <div className="cart-overlay" onClick={this.handleAddToCart}>
+        <div className="add-to-cart-btn" onClick={this.handleAddToCart}>
           <Cart />
         </div>
       </Link>

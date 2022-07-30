@@ -159,7 +159,11 @@ class ProductDisplay extends React.Component<Props, State> {
             <div className="h">PRICE:</div>
             <div>$ 50</div>
           </div>
-          <button className="button bg-primary" onClick={this.handleAddToCart}>
+          <button
+            className={`button bg-primary
+            ${this.state.product.inStock ? "" : "btn-disabled"}`}
+            onClick={this.handleAddToCart}
+          >
             ADD TO CART
           </button>
           {this.state.product.description && (
