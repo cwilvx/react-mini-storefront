@@ -49,3 +49,4 @@ export function fetchProduct(pid: string) {
     query: getProduct(pid),
   });
 }
+

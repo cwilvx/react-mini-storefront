@@ -40,18 +40,6 @@ export function getCategory(name: string) {
   `;
 }
 
-// export const getCategory = gql`
-//   ${partialProd}
-//   query getCategories {
-//     categories {
-//       name
-//       products {
-//         ...partialProd
-//       }
-//     }
-//   }
-// `;
-
 export function getProduct(id: string) {
   return gql`
     ${partialProd}
@@ -74,3 +62,12 @@ export function getProduct(id: string) {
     }
   `;
 }
+
+export const getCurrency = gql`
+  query getCurrency {
+    currencies {
+      label
+      symbol
+    }
+  }
+`;

@@ -22,3 +22,9 @@ export function getCartItemById(store: Store, item_id: string) {
   const items = store.cart.items as CartItem[];
   return items.find((item) => item.id === item_id);
 }
+
+export function getCurrency(store: Store) {
+  return {
+    ...store.currency,
+  };
+}

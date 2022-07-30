@@ -1,11 +1,14 @@
 import React from "react";
+import { connect } from "react-redux";
+
 import { Route, Switch as Routes, withRouter } from "react-router-dom";
 
 import NavBar from "./components/NavBar";
 import client from "./graph/getClient";
-import { getCategories } from "./graph/queries";
-import { Category } from "./interfaces";
+import { getCategories, getCurrency } from "./graph/queries";
+import { Category, Currency, CurrencyStore } from "./interfaces";
 import "./scss/index.scss";
+import { initializeCurrency } from "./store/actions";
 import Cart from "./views/Cart";
 import NotFound from "./views/NotFound";
 import ProductDisplay from "./views/PDP";
@@ -20,6 +23,7 @@ interface AppProps {
   match: any;
   location: any;
   history: any;
+  initializeCurrency: (state: CurrencyStore) => void;
 }
 
 class App extends React.Component<AppProps, AppState> {
@@ -45,6 +49,14 @@ class App extends React.Component<AppProps, AppState> {
     return res.data.categories as Category[];
   }
 
+  async fetchCurrency(): Promise<Currency[]> {
+    const res = await client.query({
+      query: getCurrency,
+    });
+
+    return res.data.currencies;
+  }
+
   /**
    * Sets a new category in the state
    * @param {string} cat the category to set as the current category
@@ -58,6 +70,7 @@ class App extends React.Component<AppProps, AppState> {
    * @param location the location of the current page
    */
   handleCat(location: any): void {
+    if (location.pathname !== "/") return;
     const cat = location.search.split("=")[1];
     this.changeCat(cat ? cat : this.state.categories[0].name);
   }
@@ -76,10 +89,21 @@ class App extends React.Component<AppProps, AppState> {
     });
   }
 
+  getCurrency() {
+    this.fetchCurrency().then((currencies: Currency[]) => {
+      console.log(currencies);
+      this.props.initializeCurrency({
+        currencies: currencies,
+        selected: currencies[0].label,
+      });
+    });
+  }
+
   // ======================================================
 
   componentDidMount() {
     this.getCategories();
+    this.getCurrency();
     this.props.history.listen((location: any) => {
       this.handleCat(location);
     });
@@ -113,4 +137,4 @@ class App extends React.Component<AppProps, AppState> {
   }
 }
 
-export default withRouter(App);
+export default connect(null, { initializeCurrency })(withRouter(App));

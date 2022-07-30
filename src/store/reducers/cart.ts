@@ -1,10 +1,7 @@
-import { cartActionType, CartItem } from "@/interfaces";
+import { CartItem, storeAction } from "@/interfaces";
 import { ActionType } from "../actionTypes";
 import {
-  incrementItem,
-  removeItem,
-  decrementItem,
-  itemInCart,
+  decrementItem, incrementItem, itemInCart, removeItem
 } from "./methods";
 
 const initialState = {
@@ -13,7 +10,7 @@ const initialState = {
 
 export default function AddToCartReducer(
   state = initialState,
-  action: cartActionType
+  action: storeAction
 ) {
   const item = action.payload;
 

@@ -22,8 +22,8 @@ export interface Product {
 }
 
 export interface Currency {
-  label?: string;
-  symbol?: string;
+  label: string;
+  symbol: string;
 }
 
 export interface AttributeSet {
@@ -54,12 +54,18 @@ export interface CartItem extends Product {
   quantity: number;
 }
 
-export interface Cart {
+export interface CartStore {
   items: CartItem[];
 }
 
+export interface CurrencyStore {
+  currencies: Currency[];
+  selected: string;
+}
+
 export interface Store {
-  cart: Cart;
+  cart: CartStore;
+  currency: CurrencyStore;
 }
 
 export interface SimpleItem {
@@ -88,7 +94,24 @@ export interface decrementItemAction {
   };
 }
 
-export type cartActionType =
+export interface initializeCurrencyAction {
+  type: ActionType.INITIALIZE_STORE;
+  payload: {
+    store: CurrencyStore;
+  };
+}
+
+export interface setcurrencyAction {
+  type: ActionType.SET_CURRENCY;
+  payload: {
+    currency: string;
+  };
+}
+
+export type storeAction =
   | addToCartAction
   | incrementItemAction
-  | decrementItemAction;
+  | decrementItemAction
+  | initializeCurrencyAction
+  | setcurrencyAction;
+// TODO: Group these interfaces
