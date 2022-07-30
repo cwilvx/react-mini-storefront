@@ -13,7 +13,7 @@ import {
 } from "../composables";
 import ReactivePrice from "../components/Price";
 
-import { CartAttr, CartItem, Currency, Product } from "../interfaces";
+import { CartAttr, CartItem, Product } from "../interfaces";
 import Attrs from "../components/Attrs";
 
 interface State {

@@ -15,10 +15,6 @@ function mapStateToProps(store: Store) {
 }
 
 class ReactivePrice extends React.Component<Props, {}> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {};
-  }
   render() {
     return (
       <div>
