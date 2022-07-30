@@ -60,7 +60,7 @@ export interface CartStore {
 
 export interface CurrencyStore {
   currencies: Currency[];
-  selected: string;
+  selected: Currency;
 }
 
 export interface Store {

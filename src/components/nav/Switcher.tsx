@@ -1,43 +1,57 @@
-import { Currency, CurrencyStore, Store } from "@/interfaces";
+import { Currency, Store } from "@/interfaces";
 import React from "react";
 import { connect } from "react-redux";
 import { setCurrency } from "../../store/actions";
 import { getCurrency } from "../../store/selectors";
+import drop from "../../images/drop.svg";
 
 interface CSwitcherProps {
   currencies: Currency[];
-  selected: string;
-  setCurrency: (currency: string) => void;
+  selected: Currency;
+  setCurrency: (currency: Currency) => void;
 }
 
-interface CSwitcherState {}
+interface CSwitcherState {
+  show: boolean;
+}
 
 function mapStateToProps(store: Store) {
-  console.log(getCurrency(store));
   return getCurrency(store);
 }
 
 class CSwitcher extends React.Component<CSwitcherProps, CSwitcherState> {
   constructor(props: CSwitcherProps) {
     super(props);
-    this.state = {};
+    this.state = {
+      show: false,
+    };
   }
   render() {
     return (
-      <div>
+      <div className={`cswitcher ${this.state.show ? "show-switcher" : ""}`}>
+        <div
+          className="cswitcher-toggle"
+          onClick={() => {
+            this.setState({ show: !this.state.show });
+          }}
+        >
+          <div className="selected-symbol">{this.props.selected.symbol}</div>
+          <img src={drop} alt="" />
+        </div>
         {this.props.currencies && (
           <div className="dropdown">
             {this.props.currencies.map((currency: Currency) => {
               return (
                 <div
                   className={`d-item ${
-                    this.props.selected === currency.label
+                    this.props.selected.label === currency.label
                       ? "selected-currency"
                       : ""
                   }`}
                   key={currency.label}
                   onClick={() => {
-                    this.props.setCurrency(currency.label);
+                    this.props.setCurrency(currency);
+                    this.setState({ show: !this.state.show });
                   }}
                 >
                   {currency.symbol} {currency.label}

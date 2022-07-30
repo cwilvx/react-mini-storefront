@@ -1,12 +1,9 @@
 import { ActionType } from "../actionTypes";
-import {
-  CurrencyStore,
-  storeAction,
-} from "./../../interfaces";
+import { Currency, CurrencyStore, storeAction } from "./../../interfaces";
 
 const initialState = {
   currencies: [],
-  selected: "USD",
+  selected: {} as Currency,
 };
 
 export default function CurrencyReducer(
@@ -16,7 +13,6 @@ export default function CurrencyReducer(
   switch (action.type) {
     case ActionType.INITIALIZE_STORE: {
       const { store } = action.payload;
-      console.log(store);
       return {
         ...state,
         ...store,

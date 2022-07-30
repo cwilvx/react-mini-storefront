@@ -1,35 +1,58 @@
+.show-switcher {
+  .dropdown {
+    visibility: visible !important;
+  }
+
+  img {
+    transform: rotate(-180deg) !important;
+  }
+}
+
 .cswitcher {
   display: flex;
   align-items: center;
   position: relative;
 
-  &:hover {
-    .dropdown {
-      display: unset;
+  .cswitcher-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $smaller;
+    height: 100%;
+
+    .selected-symbol {
+      font-size: 1.25rem;
     }
-    .drop {
-      transform: rotate(180deg) translateY(-$small);
+
+    img {
+      width: 1.5rem;
+      height: 1.5rem;
+      object-fit: scale-down;
+      object-position: 50% 50%;
+      transition: all 0.2s ease-in-out;
     }
   }
 
   .dropdown {
+    visibility: hidden;
     position: absolute;
     box-shadow: 0 0.5rem 1rem hsla(0, 0%, 0%, 0.1);
     width: max-content;
     top: 2rem;
     left: -1rem;
-    display: none;
     cursor: pointer;
     background-color: white;
+
+    .selected-currency {
+      background-color: rgba(128, 128, 128, 0.26);
+    }
 
     .d-item {
       margin: $smaller 0;
       padding: $small 1rem;
-      transition: all 0.2s ease-in-out;
 
       &:hover {
         background-color: rgba(128, 128, 128, 0.116);
-
       }
     }
   }

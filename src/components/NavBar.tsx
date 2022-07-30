@@ -20,6 +20,7 @@ interface Props {
 
 interface State {
   showCart: boolean;
+  showCurrencySwitcher: boolean;
   categories: Category[];
 }
 
@@ -32,6 +33,7 @@ class NavBar extends React.Component<Props, State> {
     super(props);
     this.state = {
       showCart: false,
+      showCurrencySwitcher: false,
       categories: [],
     };
     this.toggleCart = this.toggleCart.bind(this);
@@ -73,13 +75,7 @@ class NavBar extends React.Component<Props, State> {
             </Link>
           </div>
           <div className="right">
-            <div className="cswitcher">
-              <DollarSvg />
-              <div className="drop">
-                <DropSvg />
-              </div>
-              <CSwitcher />
-            </div>
+            <CSwitcher />
             <div className="cart">
               <div
                 onClick={() => {
@@ -87,6 +83,7 @@ class NavBar extends React.Component<Props, State> {
                 }}
               >
                 <CartSvg />
+
                 {this.props.item_count > 0 && (
                   <div className="cart-count circular">
                     <span>{this.props.item_count}</span>

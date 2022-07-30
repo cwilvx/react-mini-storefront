@@ -35,8 +35,19 @@
     }
   }
 
+  .hide-switcher {
+    display: none;
+  }
+
+  .show-switcher {
+    display: unset;
+
+    .drop {
+      transform: rotate(180deg) translateY(-$small) !important;
+    }
+  }
+
   .drop {
-    // border: solid;
     transition: all 0.2s ease-in-out;
   }
 

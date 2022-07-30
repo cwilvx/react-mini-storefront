@@ -91,10 +91,9 @@ class App extends React.Component<AppProps, AppState> {
 
   getCurrency() {
     this.fetchCurrency().then((currencies: Currency[]) => {
-      console.log(currencies);
       this.props.initializeCurrency({
         currencies: currencies,
-        selected: currencies[0].label,
+        selected: currencies[0],
       });
     });
   }

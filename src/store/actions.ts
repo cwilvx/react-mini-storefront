@@ -1,4 +1,4 @@
-import { CartItem, CurrencyStore } from "@/interfaces";
+import { CartItem, Currency, CurrencyStore } from "@/interfaces";
 import { ActionType } from "./actionTypes";
 
 export const addToCart = (item: CartItem) => {
@@ -17,6 +17,6 @@ export const initializeCurrency = (store: CurrencyStore) => {
   return { type: ActionType.INITIALIZE_STORE, payload: { store } };
 };
 
-export const setCurrency = (currency: string) => {
+export const setCurrency = (currency: Currency) => {
   return { type: ActionType.SET_CURRENCY, payload: { currency } };
 };
