@@ -11,8 +11,9 @@ import {
   getItemIdfromUrl,
   stripScripts,
 } from "../composables";
+import ReactivePrice from "../components/Price";
 
-import { CartAttr, CartItem, Product } from "../interfaces";
+import { CartAttr, CartItem, Currency, Product } from "../interfaces";
 import Attrs from "../components/Attrs";
 
 interface State {
@@ -25,20 +26,12 @@ interface Props {
   addToCart: (product: CartItem) => void;
 }
 
-let mapStatNotExecuted = true;
-
 const mapStateToProps = (store: any) => {
-  if (mapStatNotExecuted) {
-    const id = getItemIdfromUrl();
+  const id = getItemIdfromUrl();
 
-    mapStatNotExecuted = false;
-
-    return {
-      cartItem: getCartItemById(store, id),
-    };
-  }
-
-  return {};
+  return {
+    cartItem: getCartItemById(store, id),
+  };
 };
 
 /**
@@ -135,10 +128,6 @@ class ProductDisplay extends React.Component<Props, State> {
     this.getProduct(pid);
   }
 
-  componentWillUnmount() {
-    mapStatNotExecuted = true;
-  }
-
   // ======================================================
 
   render() {
@@ -157,7 +146,9 @@ class ProductDisplay extends React.Component<Props, State> {
           />
           <div className="price bold">
             <div className="h">PRICE:</div>
-            <div>$ 50</div>
+            <div>
+              <ReactivePrice prices={this.state.product.prices} />
+            </div>
           </div>
           <button
             className={`button bg-primary
