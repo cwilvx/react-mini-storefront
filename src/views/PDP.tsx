@@ -11,7 +11,7 @@ import {
   getItemIdfromUrl,
   stripScripts,
 } from "../composables";
-import ReactivePrice from "../components/Price";
+import Price from "../components/Price";
 
 import { CartAttr, CartItem, Product } from "../interfaces";
 import Attrs from "../components/Attrs";
@@ -147,7 +147,7 @@ class ProductDisplay extends React.Component<Props, State> {
           <div className="price bold">
             <div className="h">PRICE:</div>
             <div>
-              <ReactivePrice prices={this.state.product.prices} />
+              <Price prices={this.state.product.prices} />
             </div>
           </div>
           <button

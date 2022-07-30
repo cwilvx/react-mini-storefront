@@ -7,6 +7,7 @@ import { addToCart } from "../store/actions";
 import { extractDefaultAttrs, fetchProduct } from "../composables";
 import { CartItem, Product } from "../interfaces";
 import { ReactComponent as Cart } from "../images/cart-white.svg";
+import Price from "../components/Price";
 
 interface Props {
   product: Product;
@@ -42,11 +43,7 @@ class ItemCard extends React.Component<Props, {}> {
         </div>
 
         <div className="item-name">{this.props.product.name}</div>
-        {this.props.product.prices && (
-          <div className="item-price">
-            {this.props.product.prices[0].amount}
-          </div>
-        )}
+        <Price prices={this.props.product.prices} />
         <div className="add-to-cart-btn" onClick={this.handleAddToCart}>
           <Cart />
         </div>
