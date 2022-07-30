@@ -38,7 +38,7 @@ class Cart extends React.Component<CartProps, {}> {
               return (
                 <div
                   className="cart-overlay-item"
-                  key={JSON.stringify(item.selectedAttrs)}
+                  key={`${item.id + JSON.stringify(item.selectedAttrs)}`}
                 >
                   <CartItem item={item} />
                 </div>

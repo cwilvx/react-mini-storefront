@@ -5,7 +5,7 @@
   width: 23rem;
   background-color: $white;
   padding: 1rem;
-  min-height: 10rem;
+  height: min-content;
   max-height: calc(100vh - 7.5rem);
   overflow-y: hidden;
 
@@ -13,10 +13,13 @@
     z-index: 1200;
     display: grid;
     height: 100%;
-    grid-template-rows: 3rem 1fr 7.5rem;
+    overflow: scroll;
+    grid-template-rows: 3rem min-content 7.5rem;
     gap: 1rem;
 
     .cart-items {
+      height: 100%;
+      max-height: 30rem;
       overflow-y: auto;
       overscroll-behavior: contain;
     }
