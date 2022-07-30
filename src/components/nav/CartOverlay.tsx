@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { getCartItems, getCartItemsCount } from "../../store/selectors";
+import {
+  getCartItems,
+  getCartItemsCount,
+  getTotalPrice,
+} from "../../store/selectors";
 import { CartItem as ItemType } from "@/interfaces";
 import CartItem from "../CartItem";
 
@@ -9,12 +13,14 @@ interface CartProps {
   hideCart: () => void;
   count: number;
   cartItems: ItemType[];
+  totalPrice: number;
 }
 
 const mapStateToProps = (store: any) => {
   return {
     count: getCartItemsCount(store),
     cartItems: getCartItems(store),
+    totalPrice: getTotalPrice(store),
   };
 };
 
@@ -47,7 +53,7 @@ class Cart extends React.Component<CartProps, {}> {
           <div className="bottom">
             <div className="total">
               <div className="text">Total</div>
-              <div className="total-price">$ 50.00</div>
+              <div className="total-price">{this.props.totalPrice}.00</div>
             </div>
             <div
               className="buttons"

@@ -1,9 +1,9 @@
 import { Currency, Store } from "@/interfaces";
 import React from "react";
 import { connect } from "react-redux";
-import { setCurrency } from "../../store/actions";
-import { getCurrency } from "../../store/selectors";
 import drop from "../../images/drop.svg";
+import { setCurrency } from "../../store/actions";
+import { getCurrencyState } from "../../store/selectors";
 
 interface CSwitcherProps {
   currencies: Currency[];
@@ -16,7 +16,7 @@ interface CSwitcherState {
 }
 
 function mapStateToProps(store: Store) {
-  return getCurrency(store);
+  return getCurrencyState(store);
 }
 
 class CSwitcher extends React.Component<CSwitcherProps, CSwitcherState> {

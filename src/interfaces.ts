@@ -35,7 +35,7 @@ export interface AttributeSet {
 
 export interface Price {
   currency?: Currency;
-  amount?: any;
+  amount?: number;
 }
 
 export interface Attribute {

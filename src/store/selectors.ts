@@ -23,8 +23,25 @@ export function getCartItemById(store: Store, item_id: string) {
   return items.find((item) => item.id === item_id);
 }
 
-export function getCurrency(store: Store) {
+export function getTotalPrice(store: Store) {
+  const items = getCartItems(store);
+  const currency = getSelectedCurrency(store);
+
+  const total = items.reduce((acc: number, item) => {
+    const price =
+      item.prices?.find((price) => price.currency?.label === currency.label) ||
+      {};
+    return acc + (price.amount || 0) * item.quantity;
+  }, 0);
+  return Math.round(total);
+}
+
+export function getCurrencyState(store: Store) {
   return {
     ...store.currency,
   };
+}
+
+export function getSelectedCurrency(store: Store) {
+  return getCurrencyState(store).selected;
 }

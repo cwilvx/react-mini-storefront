@@ -1,7 +1,7 @@
 import { Currency, Price, Store } from "@/interfaces";
-import { getCurrency } from "../store/selectors";
 import React from "react";
 import { connect } from "react-redux";
+import { getSelectedCurrency } from "../store/selectors";
 
 interface Props {
   currency: Currency | undefined;
@@ -10,7 +10,7 @@ interface Props {
 
 function mapStateToProps(store: Store) {
   return {
-    currency: getCurrency(store).selected,
+    currency: getSelectedCurrency(store),
   };
 }
 
@@ -22,7 +22,7 @@ class ReactivePrice extends React.Component<Props, {}> {
           this.props.prices.map((p) => {
             return JSON.stringify(p.currency) ===
               JSON.stringify(this.props.currency)
-              ? `${p.currency?.symbol} ${p.amount}`
+              ? `${p.currency?.symbol} ${Math.round(p.amount || 0)}.00`
               : "";
           })}
       </div>
