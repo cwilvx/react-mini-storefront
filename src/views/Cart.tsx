@@ -5,24 +5,33 @@ import { getCartItems } from "../store/selectors";
 
 import { CartItem, Store } from "@/interfaces";
 import CartPageItem from "../components/CartItem";
+import {
+  calcTax,
+  getTotalItems,
+  getTotalPrice,
+  wrapCurrency,
+} from "../composables";
 
 interface CartProps {
   items: CartItem[];
+  totalPrice: string;
+  tax: string;
 }
 
-interface CartState {}
-
 function mapStateToProps(store: Store) {
+  const currency = store.currency.selected;
+  const items = getCartItems(store);
+  const price = getTotalPrice(items, currency);
+  const tax = calcTax(price, 21);
+
   return {
-    items: getCartItems(store),
+    items: items,
+    totalPrice: wrapCurrency(price, currency),
+    tax: wrapCurrency(tax, currency),
   };
 }
 
-class Cart extends React.Component<CartProps, CartState> {
-  constructor(props: CartProps) {
-    super(props);
-    this.state = {};
-  }
+class Cart extends React.Component<CartProps, {}> {
   render() {
     return (
       <div id="cart-page">
@@ -39,13 +48,13 @@ class Cart extends React.Component<CartProps, CartState> {
         </div>
         <div id="metrics">
           <div className="tax">
-            Tax 21%: <b>$ 42.00</b>
+            Tax 21%: <b>{this.props.tax}</b>
           </div>
           <div className="quantity">
-            Quantity: <b>2</b>
+            Quantity: <b>{getTotalItems(this.props.items)}</b>
           </div>
           <div className="total">
-            Total: <b>$ 84.00</b>
+            Total: <b>{this.props.totalPrice}</b>
           </div>
         </div>
         <button className="bg-primary">ORDER</button>
@@ -55,3 +64,9 @@ class Cart extends React.Component<CartProps, CartState> {
 }
 
 export default connect(mapStateToProps)(Cart);
+
+// Where I've left off:
+// ============================================================
+// Find a way to get tax (with selected currency symbol)
+// Organize functions to avoid repetition
+// Organize imports

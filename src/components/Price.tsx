@@ -1,10 +1,11 @@
+import { wrapCurrency } from "../composables";
 import { Currency, Price, Store } from "@/interfaces";
 import React from "react";
 import { connect } from "react-redux";
 import { getSelectedCurrency } from "../store/selectors";
 
 interface Props {
-  currency: Currency | undefined;
+  currency: Currency;
   prices: Price[] | undefined;
 }
 
@@ -22,7 +23,10 @@ class ReactivePrice extends React.Component<Props, {}> {
           this.props.prices.map((p) => {
             return JSON.stringify(p.currency) ===
               JSON.stringify(this.props.currency)
-              ? `${p.currency?.symbol} ${Math.round(p.amount || 0)}.00`
+              ? `${wrapCurrency(
+                  Math.round(p.amount || 0),
+                  this.props.currency
+                )}`
               : "";
           })}
       </div>

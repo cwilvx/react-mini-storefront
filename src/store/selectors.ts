@@ -1,3 +1,5 @@
+import { wrapCurrency } from "../composables";
+import { getTotalItems, getTotalPrice } from "../composables";
 import { CartItem, Store } from "./../interfaces";
 
 export const getCartState = (store: Store) => {
@@ -10,7 +12,8 @@ export function getCartItems(store: Store) {
 }
 
 export function getCartItemsCount(store: Store) {
-  return getCartItems(store).reduce((acc, item) => acc + item.quantity, 0);
+  const items = getCartItems(store);
+  return getTotalItems(items);
 }
 
 export function itemInCart(store: Store, item_id: string): boolean {
@@ -23,17 +26,11 @@ export function getCartItemById(store: Store, item_id: string) {
   return items.find((item) => item.id === item_id);
 }
 
-export function getTotalPrice(store: Store) {
+export function getCartTotal(store: Store) {
   const items = getCartItems(store);
   const currency = getSelectedCurrency(store);
-
-  const total = items.reduce((acc: number, item) => {
-    const price =
-      item.prices?.find((price) => price.currency?.label === currency.label) ||
-      {};
-    return acc + (price.amount || 0) * item.quantity;
-  }, 0);
-  return Math.round(total);
+  const total = getTotalPrice(items, currency);
+  return wrapCurrency(total, currency);
 }
 
 export function getCurrencyState(store: Store) {

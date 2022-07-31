@@ -1,42 +1,59 @@
+import { getTotalItems, handleClickOutside } from "../../composables";
+import { CartItem as ItemType, Store } from "@/interfaces";
 import React from "react";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import {
-  getCartItems,
-  getCartItemsCount,
-  getTotalPrice,
-} from "../../store/selectors";
-import { CartItem as ItemType } from "@/interfaces";
+import { Link } from "react-router-dom";
+import { getCartItems, getCartTotal } from "../../store/selectors";
 import CartItem from "../CartItem";
 
 interface CartProps {
   hideCart: () => void;
-  count: number;
   cartItems: ItemType[];
-  totalPrice: number;
+  totalPrice: string;
 }
 
-const mapStateToProps = (store: any) => {
+const mapStateToProps = (store: Store) => {
   return {
-    count: getCartItemsCount(store),
     cartItems: getCartItems(store),
-    totalPrice: getTotalPrice(store),
+    totalPrice: getCartTotal(store),
   };
 };
 
 class Cart extends React.Component<CartProps, {}> {
+  constructor(props: CartProps) {
+    super(props);
+    this.wrapperRef = React.createRef();
+    this.onClickOutside = this.onClickOutside.bind(this);
+  }
+
+  wrapperRef: React.RefObject<HTMLDivElement>;
+
+  componentDidMount() {
+    document.addEventListener("mousedown", this.onClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.onClickOutside);
+  }
+
+  onClickOutside(e: MouseEvent) {
+    const hideCart = () => {
+      this.props.hideCart();
+    };
+
+    handleClickOutside(this, e, hideCart);
+  }
+
   render() {
     return (
       <div id="cart-overlay">
-        <div
-          className="background"
-          onClick={() => {
-            this.props.hideCart();
-          }}
-        ></div>
-        <div className="content">
+        <div className="background"></div>
+        <div className="content" ref={this.wrapperRef}>
           <h3 id="bag-header">
-            My bag, <span id="bag-count">{this.props.count} items</span>
+            My bag,{" "}
+            <span id="bag-count">
+              {getTotalItems(this.props.cartItems)} items
+            </span>
           </h3>
           <div className="cart-items">
             {this.props.cartItems.map((item) => {
@@ -53,7 +70,7 @@ class Cart extends React.Component<CartProps, {}> {
           <div className="bottom">
             <div className="total">
               <div className="text">Total</div>
-              <div className="total-price">{this.props.totalPrice}.00</div>
+              <div className="total-price">{this.props.totalPrice}</div>
             </div>
             <div
               className="buttons"

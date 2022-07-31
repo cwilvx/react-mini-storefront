@@ -1,3 +1,4 @@
+import { handleClickOutside } from "../../composables";
 import { Currency, Store } from "@/interfaces";
 import React from "react";
 import { connect } from "react-redux";
@@ -22,13 +23,39 @@ function mapStateToProps(store: Store) {
 class CSwitcher extends React.Component<CSwitcherProps, CSwitcherState> {
   constructor(props: CSwitcherProps) {
     super(props);
+
     this.state = {
       show: false,
     };
+
+    this.wrapperRef = React.createRef();
+    this.onClickOutside = this.onClickOutside.bind(this);
   }
+
+  wrapperRef: React.RefObject<HTMLDivElement>;
+
+  componentDidMount() {
+    document.addEventListener("mousedown", this.onClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.onClickOutside);
+  }
+
+  onClickOutside(e: MouseEvent) {
+    const hideSwitcher = () => {
+      this.setState({ show: false });
+    };
+
+    handleClickOutside(this, e, hideSwitcher);
+  }
+
   render() {
     return (
-      <div className={`cswitcher ${this.state.show ? "show-switcher" : ""}`}>
+      <div
+        className={`cswitcher ${this.state.show ? "show-switcher" : ""}`}
+        ref={this.wrapperRef}
+      >
         <div
           className="cswitcher-toggle"
           onClick={() => {

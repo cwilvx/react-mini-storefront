@@ -76,3 +76,15 @@ export function wrapCurrency(price: number, currency: Currency) {
   return `${currency.symbol} ${price}.00`;
 }
 
+export function handleClickOutside(
+  thiss: any,
+  e: MouseEvent,
+  callback: () => void
+) {
+  if (
+    thiss.wrapperRef.current &&
+    !thiss.wrapperRef.current.contains(e.target)
+  ) {
+    callback();
+  }
+}
