@@ -5,86 +5,83 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { getCartItems, getCartTotal } from "../../store/selectors";
 import CartItem from "../CartItem";
+import { ReactComponent as CartSvg } from "../../images/cart.svg";
+import Overlay from "./Overlay";
 
 interface CartProps {
-  hideCart: () => void;
   cartItems: ItemType[];
   totalPrice: string;
+  itemCount: number;
+}
+
+interface CartState {
+  showCart: boolean;
 }
 
 const mapStateToProps = (store: Store) => {
+  const cartItems = getCartItems(store);
+  const totalPrice = getCartTotal(store);
+  const itemCount = getTotalItems(cartItems);
+
   return {
-    cartItems: getCartItems(store),
-    totalPrice: getCartTotal(store),
+    cartItems: cartItems,
+    itemCount: itemCount,
+    totalPrice: totalPrice,
   };
 };
 
-class Cart extends React.Component<CartProps, {}> {
+class Cart extends React.Component<CartProps, CartState> {
   constructor(props: CartProps) {
     super(props);
-    this.wrapperRef = React.createRef();
-    this.onClickOutside = this.onClickOutside.bind(this);
-  }
-
-  wrapperRef: React.RefObject<HTMLDivElement>;
-
-  componentDidMount() {
-    document.addEventListener("mousedown", this.onClickOutside);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("mousedown", this.onClickOutside);
-  }
-
-  onClickOutside(e: MouseEvent) {
-    const hideCart = () => {
-      this.props.hideCart();
+    this.state = {
+      showCart: false,
     };
 
-    handleClickOutside(this, e, hideCart);
+    this.hideCart = this.hideCart.bind(this);
+    this.showCart = this.showCart.bind(this);
+    this.toggleCart = this.toggleCart.bind(this);
   }
+
+  hideCart = () => {
+    this.setState({
+      showCart: false,
+    });
+  };
+
+  showCart() {
+    this.setState({
+      showCart: true,
+    });
+  }
+
+  toggleCart() {
+    this.setState({
+      showCart: !this.state.showCart,
+    });
+  }
+
+  overlayProps = {
+    hideOverlay: this.hideCart,
+    cartItemCount: this.props.itemCount,
+    cartPriceTotal: this.props.totalPrice,
+    cartItems: this.props.cartItems,
+  };
 
   render() {
     return (
-      <div id="cart-overlay">
-        <div className="background"></div>
-        <div className="content" ref={this.wrapperRef}>
-          <h3 id="bag-header">
-            My bag,{" "}
-            <span id="bag-count">
-              {getTotalItems(this.props.cartItems)} items
-            </span>
-          </h3>
-          <div className="cart-items">
-            {this.props.cartItems.map((item) => {
-              return (
-                <div
-                  className="cart-overlay-item"
-                  key={`${item.id + JSON.stringify(item.selectedAttrs)}`}
-                >
-                  <CartItem item={item} />
-                </div>
-              );
-            })}
-          </div>
-          <div className="bottom">
-            <div className="total">
-              <div className="text">Total</div>
-              <div className="total-price">{this.props.totalPrice}</div>
-            </div>
-            <div
-              className="buttons"
-              onClick={() => {
-                this.props.hideCart();
-              }}
-            >
-              <Link to="/cart">
-                <button className="view-bag button">VIEW BAG</button>
-              </Link>
+      <div className="cart">
+        {this.state.showCart && <div className="overlay-bg"></div>}
+        <div>
+          <div onClick={this.toggleCart}>
+            <CartSvg />
 
-              <button className="bg-primary button">CHECK OUT</button>
-            </div>
+            {this.props.cartItems.length > 0 && (
+              <div className="cart-count circular">
+                <span>{this.props.itemCount}</span>
+              </div>
+            )}
           </div>
+          {this.state.showCart && <Overlay {...this.overlayProps} />}
         </div>
       </div>
     );

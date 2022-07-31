@@ -1,44 +1,29 @@
-import { handleClickOutside } from "../../composables";
-import { Currency, Store } from "@/interfaces";
+import { Currency } from "../../interfaces";
 import React from "react";
-import { connect } from "react-redux";
-import drop from "../../images/drop.svg";
-import { setCurrency } from "../../store/actions";
-import { getCurrencyState } from "../../store/selectors";
+import { handleClickOutside } from "../../composables";
 
-interface CSwitcherProps {
+interface SwitcherProps {
   currencies: Currency[];
   selected: Currency;
   setCurrency: (currency: Currency) => void;
+  hideSwitcher: () => void;
 }
 
-interface CSwitcherState {
-  show: boolean;
-}
-
-function mapStateToProps(store: Store) {
-  return getCurrencyState(store);
-}
-
-class CSwitcher extends React.Component<CSwitcherProps, CSwitcherState> {
-  constructor(props: CSwitcherProps) {
+class Switcher extends React.Component<SwitcherProps, {}> {
+  constructor(props: SwitcherProps) {
     super(props);
-
-    this.state = {
-      show: false,
-    };
-
-    this.wrapperRef = React.createRef();
     this.onClickOutside = this.onClickOutside.bind(this);
   }
 
-  wrapperRef: React.RefObject<HTMLDivElement>;
+  wrapperRef: React.RefObject<HTMLDivElement> = React.createRef();
 
   componentDidMount() {
+    console.log("mounting");
     document.addEventListener("mousedown", this.onClickOutside);
   }
 
   componentWillUnmount() {
+    console.log("unmounting");
     document.removeEventListener("mousedown", this.onClickOutside);
   }
 
@@ -47,49 +32,33 @@ class CSwitcher extends React.Component<CSwitcherProps, CSwitcherState> {
       this.setState({ show: false });
     };
 
-    handleClickOutside(this, e, hideSwitcher);
+    handleClickOutside(this.wrapperRef, e, hideSwitcher);
   }
 
   render() {
     return (
-      <div
-        className={`cswitcher ${this.state.show ? "show-switcher" : ""}`}
-        ref={this.wrapperRef}
-      >
-        <div
-          className="cswitcher-toggle"
-          onClick={() => {
-            this.setState({ show: !this.state.show });
-          }}
-        >
-          <div className="selected-symbol">{this.props.selected.symbol}</div>
-          <img src={drop} alt="" />
-        </div>
-        {this.props.currencies && (
-          <div className="dropdown">
-            {this.props.currencies.map((currency: Currency) => {
-              return (
-                <div
-                  className={`d-item ${
-                    this.props.selected.label === currency.label
-                      ? "selected-currency"
-                      : ""
-                  }`}
-                  key={currency.label}
-                  onClick={() => {
-                    this.props.setCurrency(currency);
-                    this.setState({ show: !this.state.show });
-                  }}
-                >
-                  {currency.symbol} {currency.label}
-                </div>
-              );
-            })}
-          </div>
-        )}
+      <div className="dropdown" ref={this.wrapperRef}>
+        {this.props.currencies.map((currency: Currency) => {
+          return (
+            <div
+              className={`d-item ${
+                this.props.selected.label === currency.label
+                  ? "selected-currency"
+                  : ""
+              }`}
+              key={currency.label}
+              onClick={() => {
+                this.props.setCurrency(currency);
+                this.props.hideSwitcher();
+              }}
+            >
+              {currency.symbol} {currency.label}
+            </div>
+          );
+        })}
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, { setCurrency })(CSwitcher);
+export default Switcher;

@@ -1,58 +1,23 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { getCartItemsCount } from "../store/selectors";
 
-import { ReactComponent as CartSvg } from "../images/cart.svg";
 import { ReactComponent as LogoSvg } from "../images/logo.svg";
 
 import { Category } from "../interfaces";
 import CartOverlay from "./nav/CartOverlay";
-import CSwitcher from "./nav/Switcher";
+import CSwitcher from "./nav/Currency";
 
 interface Props {
   categories: Category[];
   changeCat: (cat: string) => void;
-  item_count: number;
 }
 
 interface State {
-  showCart: boolean;
-  showCurrencySwitcher: boolean;
   categories: Category[];
 }
 
-const mapStateToProps = (store: any) => {
-  return { item_count: getCartItemsCount(store) };
-};
-
 class NavBar extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      showCart: false,
-      showCurrencySwitcher: false,
-      categories: [],
-    };
-    this.toggleCart = this.toggleCart.bind(this);
-    this.hideCart = this.hideCart.bind(this);
-  }
-
-  toggleCart() {
-    this.setState({
-      showCart: !this.state.showCart,
-    });
-  }
-
-  hideCart = () => {
-    this.setState({
-      showCart: false,
-    });
-  };
-
-  cartProps = {
-    hideCart: this.hideCart,
-  };
   render() {
     return (
       <div id="navbar">
@@ -75,20 +40,7 @@ class NavBar extends React.Component<Props, State> {
           <div className="right">
             <CSwitcher />
             <div className="cart">
-              <div
-                onClick={() => {
-                  this.toggleCart();
-                }}
-              >
-                <CartSvg />
-
-                {this.props.item_count > 0 && (
-                  <div className="cart-count circular">
-                    <span>{this.props.item_count}</span>
-                  </div>
-                )}
-              </div>
-              {this.state.showCart ? <CartOverlay {...this.cartProps} /> : null}
+              <CartOverlay />
             </div>
           </div>
         </div>
@@ -97,4 +49,4 @@ class NavBar extends React.Component<Props, State> {
   }
 }
 
-export default connect(mapStateToProps)(NavBar);
+export default connect()(NavBar);

@@ -77,14 +77,11 @@ export function wrapCurrency(price: number, currency: Currency) {
 }
 
 export function handleClickOutside(
-  thiss: any,
+  ref: React.RefObject<HTMLDivElement>,
   e: MouseEvent,
   callback: () => void
 ) {
-  if (
-    thiss.wrapperRef.current &&
-    !thiss.wrapperRef.current.contains(e.target)
-  ) {
+  if (ref.current && !ref.current.contains(e.target as Node)) {
     callback();
   }
 }
