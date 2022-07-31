@@ -1,8 +1,9 @@
+import { Currency } from "@/interfaces";
 import client from "./graph/getClient";
 import { getProduct } from "./graph/queries";
 
 import { createBrowserHistory } from "history";
-import { AttributeSet, CartAttr } from "./interfaces";
+import { AttributeSet, CartAttr, CartItem } from "./interfaces";
 
 /**
  * Strips javascript from a string using a regex.
@@ -48,5 +49,30 @@ export function fetchProduct(pid: string) {
   return client.query({
     query: getProduct(pid),
   });
+}
+
+export function getTotalItems(cart: CartItem[]) {
+  return cart.reduce((acc, item) => {
+    return acc + item.quantity;
+  }, 0);
+}
+
+export function getTotalPrice(cart: CartItem[], currency: Currency) {
+  let total = cart.reduce((acc: number, item) => {
+    const price =
+      item.prices?.find((price) => price.currency?.label === currency.label) ||
+      {};
+    return acc + (price.amount || 0) * item.quantity;
+  }, 0);
+  return Math.round(total);
+}
+
+export function calcTax(price: number, tax: number) {
+  const taxed = price * (tax / 100);
+  return Math.round(taxed);
+}
+
+export function wrapCurrency(price: number, currency: Currency) {
+  return `${currency.symbol} ${price}.00`;
 }
 
