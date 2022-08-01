@@ -1,5 +1,6 @@
-import { AttributeSet, CartAttr } from "@/interfaces";
 import React from "react";
+
+import { AttributeSet, CartAttr } from "@/interfaces";
 
 interface AttrsProps {
   attrs: AttributeSet[];

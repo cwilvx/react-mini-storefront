@@ -1,19 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { getCartItems } from "../store/selectors";
-
-import { CartItem, Store } from "@/interfaces";
-import CartPageItem from "../components/CartItem";
 import {
   calcTax,
   getTotalItems,
   getTotalPrice,
   wrapCurrency,
 } from "../composables";
+import CartItem from "../components/CartItem";
+import { getCartItems } from "../store/selectors";
+import { CartItem as Item, Store } from "@/interfaces";
 
 interface CartProps {
-  items: CartItem[];
+  items: Item[];
   totalPrice: string;
   tax: string;
 }
@@ -39,10 +38,7 @@ class Cart extends React.Component<CartProps, {}> {
         <div id="cart-items">
           {this.props.items.map((item) => {
             return (
-              <CartPageItem
-                key={JSON.stringify(item.selectedAttrs)}
-                item={item}
-              />
+              <CartItem key={JSON.stringify(item.selectedAttrs)} item={item} />
             );
           })}
         </div>

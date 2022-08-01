@@ -1,18 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
-
 import { Route, Switch as Routes, withRouter } from "react-router-dom";
 
-import NavBar from "./components/Nav/NavBar";
 import client from "./graph/getClient";
 import { getCategories, getCurrency } from "./graph/queries";
-import { Category, Currency, CurrencyStore } from "./interfaces";
+
 import "./assets/scss/index.scss";
-import { initializeCurrency } from "./store/actions";
 import Cart from "./views/Cart";
+import ProductList from "./views/PLP";
 import NotFound from "./views/NotFound";
 import ProductDisplay from "./views/PDP";
-import ProductList from "./views/PLP";
+import NavBar from "./components/Nav/NavBar";
+import { initializeCurrency } from "./store/actions";
+import { Category, Currency, CurrencyStore } from "./interfaces";
 
 interface AppState {
   categories: Category[];
@@ -103,6 +103,7 @@ class App extends React.Component<AppProps, AppState> {
   componentDidMount() {
     this.getCategories();
     this.getCurrency();
+
     this.props.history.listen((location: any) => {
       this.handleCat(location);
     });

@@ -1,5 +1,6 @@
-import { Currency } from "../../../interfaces";
 import React from "react";
+
+import { Currency } from "../../../interfaces";
 import { handleClickOutside } from "../../../composables";
 
 interface SwitcherProps {

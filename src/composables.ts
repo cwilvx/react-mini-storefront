@@ -1,9 +1,8 @@
-import { Currency } from "@/interfaces";
+import { createBrowserHistory } from "history";
+
 import client from "./graph/getClient";
 import { getProduct } from "./graph/queries";
-
-import { createBrowserHistory } from "history";
-import { AttributeSet, CartAttr, CartItem } from "./interfaces";
+import { Currency, AttributeSet, CartAttr, CartItem } from "@/interfaces";
 
 /**
  * Strips javascript from a string using a regex.

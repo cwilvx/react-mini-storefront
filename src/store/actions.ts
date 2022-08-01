@@ -1,5 +1,5 @@
-import { CartItem, Currency, CurrencyStore } from "@/interfaces";
 import { ActionType } from "./actionTypes";
+import { CartItem, Currency, CurrencyStore } from "@/interfaces";
 
 export const addToCart = (item: CartItem) => {
   return { type: ActionType.ADD_TO_CART, payload: { item } };

@@ -1,10 +1,11 @@
-import { getTotalItems } from "../../../composables";
-import { CartItem as ItemType, Store } from "@/interfaces";
 import React from "react";
 import { connect } from "react-redux";
-import { getCartItems, getCartTotal } from "../../../store/selectors";
-import { ReactComponent as CartSvg } from "../../../assets/images/cart.svg";
+
 import Overlay from "./Overlay";
+import { CartItem as ItemType, Store } from "@/interfaces";
+import { getCartItems, getCartTotal } from "../../../store/selectors";
+import { getTotalItems } from "../../../composables";
+import { ReactComponent as CartSvg } from "../../../assets/images/cart.svg";
 
 interface CartProps {
   cartItems: ItemType[];

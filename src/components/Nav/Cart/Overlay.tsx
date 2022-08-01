@@ -1,7 +1,8 @@
-import { CartItem as ItemType } from "../../../interfaces";
 import React from "react";
-import CartItem from "../../CartItem";
 import { Link } from "react-router-dom";
+
+import CartItem from "../../CartItem";
+import { CartItem as ItemType } from "../../../interfaces";
 import { handleClickOutside } from "../../../composables";
 
 interface OverlayProps {

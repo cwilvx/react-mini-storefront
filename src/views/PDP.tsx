@@ -1,10 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import { addToCart } from "../store/actions";
-import { getCartItemById } from "../store/selectors";
-
-import Gallery from "../components/PDP/Gallery";
 import {
   extractDefaultAttrs,
   fetchProduct,
@@ -12,9 +8,11 @@ import {
   stripScripts,
 } from "../composables";
 import Price from "../components/Price";
-
-import { CartAttr, CartItem, Product } from "../interfaces";
 import Attrs from "../components/Attributes";
+import Gallery from "../components/PDP/Gallery";
+import { addToCart } from "../store/actions";
+import { getCartItemById } from "../store/selectors";
+import { CartAttr, CartItem, Product } from "../interfaces";
 
 interface State {
   product: Product;

@@ -1,7 +1,8 @@
-import { wrapCurrency } from "../composables";
-import { Currency, Price, Store } from "@/interfaces";
 import React from "react";
 import { connect } from "react-redux";
+
+import { wrapCurrency } from "../composables";
+import { Currency, Price, Store } from "@/interfaces";
 import { getSelectedCurrency } from "../store/selectors";
 
 interface Props {

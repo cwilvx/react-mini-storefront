@@ -4,6 +4,8 @@
 
 import { ActionType } from "./store/actionTypes";
 
+// ======= SERVER =======
+
 export interface Category {
   name: string;
   products: Product[];
@@ -44,6 +46,8 @@ export interface Attribute {
   id?: string;
 }
 
+// ======= CART =======
+
 export interface CartAttr {
   attr_id: string;
   item_id: string;
@@ -53,6 +57,13 @@ export interface CartItem extends Product {
   selectedAttrs: CartAttr[];
   quantity: number;
 }
+
+export interface SimpleItem {
+  id: string;
+  attrs: CartAttr[];
+}
+
+// ======= STORES =======
 
 export interface CartStore {
   items: CartItem[];
@@ -68,10 +79,7 @@ export interface Store {
   currency: CurrencyStore;
 }
 
-export interface SimpleItem {
-  id: string;
-  attrs: CartAttr[];
-}
+// ======= STORE ACTIONS =======
 
 export interface addToCartAction {
   type: ActionType.ADD_TO_CART;

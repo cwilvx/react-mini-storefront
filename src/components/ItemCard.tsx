@@ -2,12 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { addToCart } from "../store/actions";
-
-import { extractDefaultAttrs, fetchProduct } from "../composables";
-import { CartItem, Product } from "../interfaces";
-import { ReactComponent as Cart } from "../assets/images/cart-white.svg";
 import Price from "../components/Price";
+import { addToCart } from "../store/actions";
+import { CartItem, Product } from "../interfaces";
+import { extractDefaultAttrs, fetchProduct } from "../composables";
+
+import { ReactComponent as Cart } from "../assets/images/cart-white.svg";
 
 interface Props {
   product: Product;

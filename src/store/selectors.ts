@@ -1,6 +1,6 @@
 import { wrapCurrency } from "../composables";
-import { getTotalItems, getTotalPrice } from "../composables";
 import { CartItem, Store } from "./../interfaces";
+import { getTotalItems, getTotalPrice } from "../composables";
 
 export const getCartState = (store: Store) => {
   return store.cart;

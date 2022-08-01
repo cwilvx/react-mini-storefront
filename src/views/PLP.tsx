@@ -1,7 +1,8 @@
 import React from "react";
-import ItemCard from "../components/ItemCard";
+
 import client from "../graph/getClient";
 import { Category } from "../interfaces";
+import ItemCard from "../components/ItemCard";
 import { getCategory } from "../graph/queries";
 
 interface State {

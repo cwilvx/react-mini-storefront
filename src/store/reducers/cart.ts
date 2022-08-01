@@ -1,11 +1,11 @@
-import { CartItem, storeAction } from "@/interfaces";
-import { ActionType } from "../actionTypes";
 import {
   decrementItem,
   incrementItem,
   itemInCart,
   removeItem,
 } from "./methods";
+import { ActionType } from "../actionTypes";
+import { CartItem, storeAction } from "@/interfaces";
 
 const initialState = {
   items: [] as CartItem[],

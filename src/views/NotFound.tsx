@@ -1,14 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-interface Props {}
 
-interface State {}
-
-class NotFound extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {};
-  }
+class NotFound extends React.Component {
   render() {
     return (
       <div className="notfound">
