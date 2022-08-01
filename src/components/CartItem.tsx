@@ -1,14 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import Price from "./Price";
-import Attrs from "./Attributes";
 import { CartItem } from "@/interfaces";
-import { incrementQuantity, decrementQuantity } from "../store/actions";
+import { decrementQuantity, incrementQuantity } from "../store/actions";
+import Attrs from "./Attributes";
+import Price from "./Price";
 
-import { ReactComponent as PlusSvg } from "../assets/images/plus.svg";
-import { ReactComponent as MinusSvg } from "../assets/images/minus.svg";
 import { ReactComponent as ArrowSvg } from "../assets/images/arrow.svg";
+import { ReactComponent as MinusSvg } from "../assets/images/minus.svg";
+import { ReactComponent as PlusSvg } from "../assets/images/plus.svg";
 
 interface Props {
   item: CartItem;
@@ -47,7 +47,7 @@ class CartPageItem extends React.Component<Props, State> {
   };
   render() {
     return (
-      <div className="cart-item cart-page-item">
+      <div className="cart-item ">
         <div className="left">
           <h2>{this.props.item.brand}</h2>
           <h2 className="item-name">{this.props.item.name}</h2>
