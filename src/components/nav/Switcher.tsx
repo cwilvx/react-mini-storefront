@@ -18,21 +18,15 @@ class Switcher extends React.Component<SwitcherProps, {}> {
   wrapperRef: React.RefObject<HTMLDivElement> = React.createRef();
 
   componentDidMount() {
-    console.log("mounting");
     document.addEventListener("mousedown", this.onClickOutside);
   }
 
   componentWillUnmount() {
-    console.log("unmounting");
     document.removeEventListener("mousedown", this.onClickOutside);
   }
 
   onClickOutside(e: MouseEvent) {
-    const hideSwitcher = () => {
-      this.setState({ show: false });
-    };
-
-    handleClickOutside(this.wrapperRef, e, hideSwitcher);
+    handleClickOutside(this.wrapperRef, e, this.props.hideSwitcher);
   }
 
   render() {

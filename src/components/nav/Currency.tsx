@@ -27,15 +27,10 @@ class CSwitcher extends React.Component<CSwitcherProps, CSwitcherState> {
     this.state = {
       show: false,
     };
+    this.hideSwitcher = this.hideSwitcher.bind(this);
   }
-
-  switcherProps = {
-    currencies: this.props.currencies,
-    selected: this.props.selected,
-    setCurrency: this.props.setCurrency,
-    hideSwitcher: () => {
-      this.setState({ show: false });
-    },
+  hideSwitcher = () => {
+    this.setState({ show: false });
   };
 
   render() {
@@ -47,10 +42,19 @@ class CSwitcher extends React.Component<CSwitcherProps, CSwitcherState> {
             this.setState({ show: !this.state.show });
           }}
         >
-          <div className="selected-symbol">{this.props.selected.symbol}</div>
-          <img src={drop} alt="" />
+          <div className="selected-symbol toggle-handler">
+            {this.props.selected.symbol}
+          </div>
+          <img src={drop} alt="" className="toggle-handler" />
         </div>
-        {this.state.show && <Switcher {...this.switcherProps} />}
+        {this.state.show && (
+          <Switcher
+            currencies={this.props.currencies}
+            hideSwitcher={this.hideSwitcher}
+            selected={this.props.selected}
+            setCurrency={this.props.setCurrency}
+          />
+        )}
       </div>
     );
   }

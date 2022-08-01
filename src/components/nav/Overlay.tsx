@@ -21,7 +21,6 @@ class Overlay extends React.Component<OverlayProps, {}> {
 
   componentDidMount() {
     document.addEventListener("mousedown", this.onClickOutside);
-    console.log(this.wrapperRef);
   }
 
   componentWillUnmount() {

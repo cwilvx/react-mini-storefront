@@ -81,6 +81,10 @@ export function handleClickOutside(
   e: MouseEvent,
   callback: () => void
 ) {
+  if ((e.target as HTMLElement).classList.contains("toggle-handler")) {
+    return;
+  }
+
   if (ref.current && !ref.current.contains(e.target as Node)) {
     callback();
   }

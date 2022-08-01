@@ -1,10 +1,8 @@
-import { getTotalItems, handleClickOutside } from "../../composables";
+import { getTotalItems } from "../../composables";
 import { CartItem as ItemType, Store } from "@/interfaces";
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { getCartItems, getCartTotal } from "../../store/selectors";
-import CartItem from "../CartItem";
 import { ReactComponent as CartSvg } from "../../images/cart.svg";
 import Overlay from "./Overlay";
 
@@ -60,28 +58,28 @@ class Cart extends React.Component<CartProps, CartState> {
     });
   }
 
-  overlayProps = {
-    hideOverlay: this.hideCart,
-    cartItemCount: this.props.itemCount,
-    cartPriceTotal: this.props.totalPrice,
-    cartItems: this.props.cartItems,
-  };
-
   render() {
     return (
       <div className="cart">
         {this.state.showCart && <div className="overlay-bg"></div>}
         <div>
-          <div onClick={this.toggleCart}>
-            <CartSvg />
+          <div onClick={this.toggleCart} className="toggle-handler">
+            <CartSvg className="toggle-handler" />
 
             {this.props.cartItems.length > 0 && (
-              <div className="cart-count circular">
-                <span>{this.props.itemCount}</span>
+              <div className="cart-count circular toggle-handler">
+                <span className="toggle-handler">{this.props.itemCount}</span>
               </div>
             )}
           </div>
-          {this.state.showCart && <Overlay {...this.overlayProps} />}
+          {this.state.showCart && (
+            <Overlay
+              cartItemCount={this.props.itemCount}
+              cartItems={this.props.cartItems}
+              cartPriceTotal={this.props.totalPrice}
+              hideOverlay={this.hideCart}
+            />
+          )}
         </div>
       </div>
     );
