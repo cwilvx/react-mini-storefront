@@ -1,10 +1,10 @@
 import { Currency, Store } from "@/interfaces";
 import React from "react";
 import { connect } from "react-redux";
-import drop from "../../images/drop.svg";
-import { setCurrency } from "../../store/actions";
-import { getCurrencyState } from "../../store/selectors";
-import Switcher from "./Switcher";
+import drop from "../../../assets/images/drop.svg";
+import { setCurrency } from "../../../store/actions";
+import { getCurrencyState } from "../../../store/selectors";
+import Switcher from ".";
 
 interface CSwitcherProps {
   currencies: Currency[];

@@ -2,11 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { ReactComponent as LogoSvg } from "../images/logo.svg";
+import { ReactComponent as LogoSvg } from "../../assets/images/logo.svg";
 
-import { Category } from "../interfaces";
-import CartOverlay from "./nav/CartOverlay";
-import CSwitcher from "./nav/Currency";
+import { Category } from "../../interfaces";
+import CartOverlay from "./Cart";
+import CSwitcher from "./Currency/Overlay";
 
 interface Props {
   categories: Category[];

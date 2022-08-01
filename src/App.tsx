@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 
 import { Route, Switch as Routes, withRouter } from "react-router-dom";
 
-import NavBar from "./components/NavBar";
+import NavBar from "./components/Nav/NavBar";
 import client from "./graph/getClient";
 import { getCategories, getCurrency } from "./graph/queries";
 import { Category, Currency, CurrencyStore } from "./interfaces";
-import "./scss/index.scss";
+import "./assets/scss/index.scss";
 import { initializeCurrency } from "./store/actions";
 import Cart from "./views/Cart";
 import NotFound from "./views/NotFound";

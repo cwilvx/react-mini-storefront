@@ -14,7 +14,7 @@ import {
 import Price from "../components/Price";
 
 import { CartAttr, CartItem, Product } from "../interfaces";
-import Attrs from "../components/Attrs";
+import Attrs from "../components/Attributes";
 
 interface State {
   product: Product;

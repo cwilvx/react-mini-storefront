@@ -6,7 +6,7 @@ import { addToCart } from "../store/actions";
 
 import { extractDefaultAttrs, fetchProduct } from "../composables";
 import { CartItem, Product } from "../interfaces";
-import { ReactComponent as Cart } from "../images/cart-white.svg";
+import { ReactComponent as Cart } from "../assets/images/cart-white.svg";
 import Price from "../components/Price";
 
 interface Props {

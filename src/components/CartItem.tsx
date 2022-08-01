@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import { incrementQuantity, decrementQuantity } from "../store/actions";
 
 import { CartItem } from "@/interfaces";
-import Attrs from "./Attrs";
+import Attrs from "./Attributes";
 
-import { ReactComponent as PlusSvg } from "../images/plus.svg";
-import { ReactComponent as MinusSvg } from "../images/minus.svg";
-import { ReactComponent as ArrowSvg } from "../images/arrow.svg";
+import { ReactComponent as PlusSvg } from "../assets/images/plus.svg";
+import { ReactComponent as MinusSvg } from "../assets/images/minus.svg";
+import { ReactComponent as ArrowSvg } from "../assets/images/arrow.svg";
 import Price from "./Price";
 
 interface Props {
