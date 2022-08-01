@@ -20,6 +20,10 @@
     font-weight: bold;
   }
 
+  .itemcount {
+    user-select: none;
+  }
+
   svg {
     width: 2rem;
     height: 2rem;
@@ -63,7 +67,6 @@
     }
 
     .attributes {
-
       .attr-h {
         margin: $smaller 0;
         text-transform: capitalize;

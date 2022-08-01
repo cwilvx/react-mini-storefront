@@ -24,6 +24,7 @@ body {
 #app {
   max-width: $maxappwidth;
   margin: 0 auto;
+  
 
   #appcontent {
     padding: 0 $small;
@@ -63,4 +64,8 @@ button {
 
 .bold {
   font-weight: bold;
+}
+
+img {
+  user-select: none;
 }
