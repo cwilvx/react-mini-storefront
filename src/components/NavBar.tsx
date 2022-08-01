@@ -11,6 +11,7 @@ import CSwitcher from "./nav/Currency";
 interface Props {
   categories: Category[];
   changeCat: (cat: string) => void;
+  currentCat: string | null;
 }
 
 interface State {
@@ -26,9 +27,16 @@ class NavBar extends React.Component<Props, State> {
             {this.props.categories &&
               this.props.categories.map((cat) => {
                 return (
-                  <div className="nav-item" key={cat.name}>
-                    <Link to={`/?cat=${cat.name}`}>{cat.name}</Link>
-                  </div>
+                  <Link to={`/?cat=${cat.name}`} key={cat.name}>
+                    <div
+                      className={`nav-item ${
+                        this.props.currentCat === cat.name ? "active" : ""
+                      }`}
+                      key={cat.name}
+                    >
+                      {cat.name}
+                    </div>
+                  </Link>
                 );
               })}
           </div>

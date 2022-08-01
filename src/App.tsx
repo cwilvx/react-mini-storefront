@@ -116,6 +116,7 @@ class App extends React.Component<AppProps, AppState> {
             <NavBar
               categories={this.state.categories}
               changeCat={this.changeCat}
+              currentCat={this.state.current_cat}
             />
             <div id="appcontent">
               <Routes>
