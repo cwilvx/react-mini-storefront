@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { CartItem } from "@/interfaces";
 import { decrementQuantity, incrementQuantity } from "../store/actions";
@@ -49,8 +50,10 @@ class CartPageItem extends React.Component<Props, State> {
     return (
       <div className="cart-item ">
         <div className="left">
-          <h2>{this.props.item.brand}</h2>
-          <h2 className="item-name">{this.props.item.name}</h2>
+          <Link to={`/product/${this.props.item.id}`}>
+            <h2>{this.props.item.brand}</h2>
+            <h2 className="item-name">{this.props.item.name}</h2>
+          </Link>
           <div className="price">
             <Price prices={this.props.item.prices} />
           </div>

@@ -10,6 +10,11 @@
     gap: 2rem;
   }
 
+  a {
+    text-decoration: none;
+    color: $black;
+  }
+  
   .thumbs {
     display: flex;
     flex-direction: column;
@@ -35,7 +40,7 @@
     pointer-events: none;
     opacity: 0.8;
   }
-  
+
   .details {
     max-width: 25rem;
 

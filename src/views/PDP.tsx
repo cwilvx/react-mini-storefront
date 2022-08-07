@@ -1,10 +1,11 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 import {
   extractDefaultAttrs,
   fetchProduct,
-  getItemIdfromUrl,
+  replaceAttrs,
   stripScripts,
 } from "../composables";
 import Price from "../components/Price";
@@ -17,26 +18,37 @@ import { CartAttr, CartItem, Product } from "../interfaces";
 interface State {
   product: Product;
   cartItem: CartItem;
+  getCartItem: (pid: string) => CartItem | undefined;
 }
 
 interface Props {
-  cartItem: CartItem | undefined;
+  match: any;
+  location: any;
+  history: any;
   addToCart: (product: CartItem) => void;
+  getCartItem: (pid: string) => CartItem | undefined;
+}
+
+function getItemIdfromUrl(location: Location) {
+  const id = location.pathname.split("/")[2];
+  return id;
 }
 
 const mapStateToProps = (store: any) => {
-  const id = getItemIdfromUrl();
+  function getCartItem(pid: string) {
+    return getCartItemById(store, pid);
+  }
 
   return {
-    cartItem: getCartItemById(store, id),
+    getCartItem,
   };
 };
 
 /**
- * Strips Javascript from a string
- * @param {string} html HTML string to be parsed
- * @returns {string} HTML string with stripped scripts
+ * The function to remove history listener
+ * when this component unmounts
  */
+let StopHistoryListener: Function;
 
 class ProductDisplay extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -49,14 +61,17 @@ class ProductDisplay extends React.Component<Props, State> {
         attributes: [],
         quantity: 0,
       } as CartItem,
+      getCartItem: this.props.getCartItem,
     };
   }
 
-  parseProductFromCart() {
-    if (this.props.cartItem) {
+  parseProductFromCart(pid: string) {
+    const cartItem = this.props.getCartItem(pid);
+
+    if (cartItem) {
       this.setState({
-        cartItem: this.props.cartItem,
-        product: this.props.cartItem,
+        cartItem: cartItem,
+        product: cartItem,
       });
       return true;
     }
@@ -65,7 +80,7 @@ class ProductDisplay extends React.Component<Props, State> {
   }
 
   getProduct(pid: string) {
-    if (this.parseProductFromCart()) return;
+    if (this.parseProductFromCart(pid)) return;
 
     fetchProduct(pid).then((res) => {
       this.setState({
@@ -90,13 +105,7 @@ class ProductDisplay extends React.Component<Props, State> {
     this.setState({
       cartItem: {
         ...this.state.cartItem,
-        selectedAttrs: this.state.cartItem.selectedAttrs.map((a: CartAttr) => {
-          if (a.attr_id === attr.attr_id) {
-            return attr;
-          }
-
-          return a;
-        }),
+        selectedAttrs: replaceAttrs(this.state.cartItem.selectedAttrs, attr),
       },
     });
   }
@@ -122,8 +131,20 @@ class ProductDisplay extends React.Component<Props, State> {
   // ================ LIFECYCLE HOOKS =====================
 
   componentDidMount() {
-    const pid = getItemIdfromUrl();
+    let pid = getItemIdfromUrl(this.props.history.location);
     this.getProduct(pid);
+
+    StopHistoryListener = this.props.history.listen((location: any) => {
+      pid = getItemIdfromUrl(location);
+
+      if (pid) {
+        this.getProduct(pid);
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    StopHistoryListener();
   }
 
   // ======================================================
@@ -169,4 +190,6 @@ class ProductDisplay extends React.Component<Props, State> {
   }
 }
 
-export default connect(mapStateToProps, { addToCart })(ProductDisplay);
+export default connect(mapStateToProps, { addToCart })(
+  withRouter(ProductDisplay)
+);
