@@ -29,6 +29,10 @@ interface Props {
   getCartItem: (pid: string) => CartItem | undefined;
 }
 
+/**
+ * Parses a product id from the browser location
+ * @returns {string} - the product id
+ */
 function getItemIdfromUrl(location: Location) {
   const id = location.pathname.split("/")[2];
   return id;
@@ -45,8 +49,7 @@ const mapStateToProps = (store: any) => {
 };
 
 /**
- * The function to remove history listener
- * when this component unmounts
+ * The function to remove history listener when this component unmounts
  */
 let StopHistoryListener: Function;
 
@@ -65,6 +68,11 @@ class ProductDisplay extends React.Component<Props, State> {
     };
   }
 
+  /**
+   * Checks if the product is in the cart. If true, it sets the cart item to the found item.
+   * @param pid The product id
+   * @returns { boolean } true if the product is in the cart, false otherwise
+   */
   parseProductFromCart(pid: string) {
     const cartItem = this.props.getCartItem(pid);
 
@@ -79,6 +87,10 @@ class ProductDisplay extends React.Component<Props, State> {
     return false;
   }
 
+  /**
+   * Fetches the product from the server and sets the state.
+   * @param pid The product id
+   */
   getProduct(pid: string) {
     if (this.parseProductFromCart(pid)) return;
 
@@ -91,6 +103,10 @@ class ProductDisplay extends React.Component<Props, State> {
     });
   }
 
+  /**
+   * Sets default cart item attributes.
+   * @param product The product to add to the cart
+   */
   setDefaultCartItem(product: Product) {
     this.setState({
       cartItem: {
@@ -101,6 +117,10 @@ class ProductDisplay extends React.Component<Props, State> {
     });
   }
 
+  /**
+   * Replaces selected attribute with the given attribute.
+   * @param attr The attribute to replace.
+   */
   replaceAttr(attr: CartAttr) {
     this.setState({
       cartItem: {

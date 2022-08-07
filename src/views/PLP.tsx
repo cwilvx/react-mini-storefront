@@ -21,6 +21,9 @@ class ProductList extends React.Component<Props, State> {
     };
   }
 
+  /**
+   * Fetches category products from the GraphQL server and sets the state
+   */
   async getCategory() {
     const res = await client.query({
       query: getCategory(this.props.cat_name),

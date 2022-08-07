@@ -30,6 +30,7 @@ class CSwitcher extends React.Component<CSwitcherProps, CSwitcherState> {
     };
     this.hideSwitcher = this.hideSwitcher.bind(this);
   }
+
   hideSwitcher = () => {
     this.setState({ show: false });
   };

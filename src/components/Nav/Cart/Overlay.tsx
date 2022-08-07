@@ -29,11 +29,7 @@ class Overlay extends React.Component<OverlayProps, {}> {
   }
 
   onClickOutside(e: MouseEvent) {
-    const hideCart = () => {
-      this.props.hideOverlay();
-    };
-
-    handleClickOutside(this.wrapperRef, e, hideCart);
+    handleClickOutside(this.wrapperRef, e, this.props.hideOverlay);
   }
   render() {
     return (
@@ -49,7 +45,7 @@ class Overlay extends React.Component<OverlayProps, {}> {
                   className="cart-overlay-item"
                   key={`${item.id + JSON.stringify(item.selectedAttrs)}`}
                 >
-                  <CartItem item={item} />
+                  <CartItem item={item} hideCart={this.props.hideOverlay} />
                 </div>
               );
             })}

@@ -13,6 +13,7 @@ import { ReactComponent as PlusSvg } from "../assets/images/plus.svg";
 
 interface Props {
   item: CartItem;
+  hideCart?: () => void;
   incrementQuantity: (item: CartItem) => void;
   decrementQuantity: (item: CartItem) => void;
 }
@@ -29,7 +30,7 @@ class CartPageItem extends React.Component<Props, State> {
     };
   }
 
-  nextImage = () => {
+  showNextImage = () => {
     this.setState({
       currentImage:
         this.state.currentImage === this.props.item.gallery.length - 1
@@ -38,7 +39,7 @@ class CartPageItem extends React.Component<Props, State> {
     });
   };
 
-  prevImage = () => {
+  showPrevImage = () => {
     this.setState({
       currentImage:
         this.state.currentImage === 0
@@ -50,7 +51,10 @@ class CartPageItem extends React.Component<Props, State> {
     return (
       <div className="cart-item ">
         <div className="left">
-          <Link to={`/product/${this.props.item.id}`}>
+          <Link
+            to={`/product/${this.props.item.id}`}
+            onClick={this.props?.hideCart}
+          >
             <h2>{this.props.item.brand}</h2>
             <h2 className="item-name">{this.props.item.name}</h2>
           </Link>
@@ -84,10 +88,10 @@ class CartPageItem extends React.Component<Props, State> {
           <img src={this.props.item.gallery[this.state.currentImage]} alt="" />
           {this.props.item.gallery.length > 1 && (
             <div className="img-buttons">
-              <div className="next" onClick={this.nextImage}>
+              <div className="next" onClick={this.showNextImage}>
                 <ArrowSvg />
               </div>
-              <div className="prev" onClick={this.prevImage}>
+              <div className="prev" onClick={this.showPrevImage}>
                 <ArrowSvg />
               </div>
             </div>

@@ -15,10 +15,15 @@ interface Props {
 }
 
 class ItemCard extends React.Component<Props, {}> {
+  /**
+   * Adds a product to the cart with the default attributes
+   * @param e Mouse event
+   */
   handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     if (!this.props.product.id) return;
 
+    // fetch product and select default attributes
     fetchProduct(this.props.product.id).then((res) => {
       const prod = res.data.product as Product;
       const cartItem = {

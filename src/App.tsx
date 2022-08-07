@@ -49,6 +49,10 @@ class App extends React.Component<AppProps, AppState> {
     return res.data.categories as Category[];
   }
 
+  /**
+   * Fetches the currency from the GraphQL server
+   * @returns {Promise<Category[]>} - Promise that resolves to the currency list
+   */
   async fetchCurrency(): Promise<Currency[]> {
     const res = await client.query({
       query: getCurrency,
@@ -89,6 +93,9 @@ class App extends React.Component<AppProps, AppState> {
     });
   }
 
+  /**
+   * Fetches currency from the GraphQL server and sets it in the state
+   */
   getCurrency() {
     this.fetchCurrency().then((currencies: Currency[]) => {
       this.props.initializeCurrency({
