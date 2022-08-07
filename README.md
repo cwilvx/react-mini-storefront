@@ -2,6 +2,22 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Local setup
+
+This project uses a graphql server located [here](https://github.com/scandiweb/junior-react-endpoint). Please setup the server first.
+
+---
+
+Now with the graphql running, clone this repo to your machine, install the dependencies and start the app.
+
+```sh
+git clone https://github.com/geoffrey45/react-mini-storefront.git
+
+cd react-mini-storefront
+yarn
+yarn start
+```
+
 ## Available Scripts
 
 In the project directory, you can run:
