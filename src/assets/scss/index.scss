@@ -24,7 +24,6 @@ body {
 #app {
   max-width: $maxappwidth;
   margin: 0 auto;
-  
 
   #appcontent {
     padding: 0 $small;
@@ -68,4 +67,23 @@ button {
 
 img {
   user-select: none;
+}
+
+.img-overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+
+  &::before {
+    content: "OUT OF STOCK";
+    width: 100% !important;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: lighter;
+    opacity: .6;
+  }
 }

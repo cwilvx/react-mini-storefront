@@ -171,8 +171,16 @@ class ProductDisplay extends React.Component<Props, State> {
 
   render() {
     return (
-      <div id="productdisplay">
-        {<Gallery images={this.state.product.gallery} />}
+      <div
+        id="productdisplay"
+        className={!this.state.product.inStock ? "oosproduct" : ""}
+      >
+        {
+          <Gallery
+            images={this.state.product.gallery}
+            inStock={this.state.product.inStock}
+          />
+        }
         <div className="details">
           <div className="name">
             <h2 className="company">{this.state.product.brand}</h2>

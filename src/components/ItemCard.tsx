@@ -44,7 +44,7 @@ class ItemCard extends React.Component<Props, {}> {
       >
         <div className="image">
           <img src={this.props.product.gallery[0]} alt="" />
-          <div className="img-overlay"></div>
+          {!this.props.product.inStock && <div className="img-overlay"></div>}
         </div>
 
         <div className="item-name">
