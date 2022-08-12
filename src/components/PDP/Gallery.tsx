@@ -40,7 +40,7 @@ class Gallery extends React.Component<GalleryProps, GalleryState> {
             }
             alt="main preview"
           />
-          {!this.props.inStock && <div className="img-overlay"></div>}
+          {this.props.inStock === false && <div className="img-overlay"></div>}
         </div>
       </div>
     );
