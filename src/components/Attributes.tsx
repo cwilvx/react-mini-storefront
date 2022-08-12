@@ -45,7 +45,7 @@ class Attrs extends React.Component<AttrsProps, AttrsState> {
                         >
                           <button
                             className={`color ${
-                              item.id == "White" ? "is_white" : ""
+                              item.id === "White" ? "is_white" : ""
                             }`}
                             style={{ backgroundColor: item.value }}
                             onClick={() =>
