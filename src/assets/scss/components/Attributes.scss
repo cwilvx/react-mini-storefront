@@ -6,9 +6,10 @@
   }
 
   .is_swatch {
+    margin-left: 2px;
     display: flex;
     flex-wrap: wrap;
-    gap: 4px;
+    gap: 0.2rem;
 
     & > * {
       display: flex;
@@ -24,7 +25,7 @@
     }
 
     .is_white {
-      outline: solid 1px rgb(119, 119, 119);
+      outline: solid 1px $gray1;
     }
 
     .selected {
