@@ -6,6 +6,7 @@ import { gql } from "@apollo/client";
 const partialProd = gql`
   fragment partialProd on Product {
     id
+    brand
     name
     gallery
     inStock
@@ -58,7 +59,6 @@ export function getProduct(id: string) {
       product(id: "${id}") {
         ...partialProd
         description
-        brand
         attributes {
           id
           type

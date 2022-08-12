@@ -14,7 +14,7 @@ export interface Category {
 export interface Product {
   id?: string;
   name?: string;
-  inStock?: Boolean;
+  inStock?: boolean;
   gallery: string[];
   description?: string | null;
   category?: string;

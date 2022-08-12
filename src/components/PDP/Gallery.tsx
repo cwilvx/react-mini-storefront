@@ -2,6 +2,7 @@ import React from "react";
 
 interface GalleryProps {
   images: string[];
+  inStock: boolean | undefined;
 }
 
 interface GalleryState {
@@ -39,6 +40,7 @@ class Gallery extends React.Component<GalleryProps, GalleryState> {
             }
             alt="main preview"
           />
+          {!this.props.inStock && <div className="img-overlay"></div>}
         </div>
       </div>
     );

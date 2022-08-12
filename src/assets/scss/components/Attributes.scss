@@ -6,15 +6,16 @@
   }
 
   .is_swatch {
+    margin-left: 2px;
     display: flex;
     flex-wrap: wrap;
+    gap: 0.2rem;
 
     & > * {
       display: flex;
       align-items: center;
       justify-content: center;
       border: solid 2px transparent;
-      padding: 2px;
     }
 
     button {
@@ -23,8 +24,16 @@
       width: 2rem;
     }
 
+    .is_white {
+      outline: solid 1px $gray1;
+    }
+
     .selected {
-      border: solid 2px $primary;
+      outline: solid 2px $primary;
+
+      .is_white {
+        outline: none;
+      }
     }
   }
 

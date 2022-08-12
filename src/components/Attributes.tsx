@@ -17,6 +17,7 @@ class Attrs extends React.Component<AttrsProps, AttrsState> {
   constructor(props: AttrsProps) {
     super(props);
     this.state = {};
+    console.log(this.props);
   }
   render() {
     return (
@@ -43,7 +44,9 @@ class Attrs extends React.Component<AttrsProps, AttrsState> {
                           }
                         >
                           <button
-                            className="color"
+                            className={`color ${
+                              item.id === "White" ? "is_white" : ""
+                            }`}
                             style={{ backgroundColor: item.value }}
                             onClick={() =>
                               this.props.selectAttr(attribute.id, item.id)

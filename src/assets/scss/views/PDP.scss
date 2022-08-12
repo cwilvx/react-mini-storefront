@@ -1,3 +1,7 @@
+.oosproduct {
+  opacity: 0.5;
+}
+
 #productdisplay {
   margin-top: 4rem;
   display: grid;
@@ -8,6 +12,8 @@
     display: grid;
     grid-template-columns: max-content 1fr;
     gap: 2rem;
+    position: relative;
+    height: min-content;
   }
 
   .thumbs {
@@ -18,19 +24,26 @@
     img {
       width: 5.625rem;
       aspect-ratio: 1;
-      object-fit: cover;
+      object-fit: contain;
       cursor: pointer;
     }
   }
 
   .preview {
-    width: 100%;
+    position: relative;
 
     img {
-      width: 37.5rem;
-      object-fit: cover;
+      width: 35rem;
+    }
+
+    .img-overlay {
+      &::before {
+        font-size: 5rem;
+        opacity: 0.4;
+      }
     }
   }
+
   .btn-disabled {
     pointer-events: none;
     opacity: 0.8;
@@ -42,6 +55,7 @@
     & > * {
       margin-bottom: 1rem;
     }
+    
     .name {
       & > * {
         margin: 0;
