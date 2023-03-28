@@ -1,3 +1,8 @@
+![Full homepage](./screenshots/fullpage.webp)
+![Full homepage](./screenshots/item.webp)
+![Full homepage](./screenshots/cart.webp)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
